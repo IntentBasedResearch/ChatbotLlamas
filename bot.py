@@ -43,7 +43,7 @@ dataset = pd.read_csv("processed_intent.csv")
 def search_intent(user_input, l):
     user_vector = ollama_client.embeddings(model="example", prompt=user_input)["embedding"]
     results = client.search(collection_name="intent_db", query_vector=user_vector, limit=1)
-
+    print(user_input)
  
     if results:
         best_match: ScoredPoint = results[0]

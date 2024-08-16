@@ -49,3 +49,4 @@ Housing does not normally limit the amount of bandwidth;define intent uniIntent:
 The UVA More Secure Network uses a firewall, a network security device designed to help protect your computer from hackers and other malicious people on the Internet.;define intent uniIntent: for endpoint('network') add middlebox('firewall')
 The network firewall does prevent some applications from working in their normal manner, for example, video and audio conferencing products that use the H.323;define intent uniIntent: for endpoint('network') block traffic('H323 video conferencing')
 The UC Davis network is continually scanned for prohibited activities and network threats.;define intent uniIntent: for endpoint('network') add middlebox('traffic monitor')
+Inspect packets for all students;define intent uniIntent: for group('students') add middlebox('dpi')
