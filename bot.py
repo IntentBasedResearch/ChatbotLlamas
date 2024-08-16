@@ -43,22 +43,35 @@ dataset = pd.read_csv("processed_intent.csv")
 def search_intent(user_input, l):
     user_vector = ollama_client.embeddings(model="example", prompt=user_input)["embedding"]
     results = client.search(collection_name="intent_db", query_vector=user_vector, limit=1)
-      
+
+ 
     if results:
         best_match: ScoredPoint = results[0]
+        print(results)
         print(best_match.score)
-        if best_match.score >= 0.70:
+        if best_match.score >= 0.90:
             best_match_id = best_match.id
             matched_intent = dataset.iloc[best_match_id]["text"]
             response = dataset.iloc[best_match_id]["nile"]
       
             return "this intent is correct: " + response + " ?"
-        else:
-            output = ollama.chat(
+        elif best_match.score >= 0.30:
+            best_match_id = best_match.id
+            matched_intent = dataset.iloc[best_match_id]["text"]
+            response = dataset.iloc[best_match_id]["nile"]
+            print(matched_intent)
+            print(response)
+            output= ollama.generate(
   model="example",
-messages=l
-) 
-            return output['message']['content']
+  prompt=f"this intent: {matched_intent} construct this response: {response}. What this intent: {user_input} construct response?.Response Only UnitIntent"
+)
+            return output['response']
+        else:
+          output= ollama.chat(
+  model="example",
+  messages = l
+)
+          return output["message"]["content"]
     else:
         return None, "Sorry, I didn't understand that."
 
