@@ -49,4 +49,1295 @@ Housing does not normally limit the amount of bandwidth,define intent uniIntent:
 "The UVA More Secure Network uses a firewall, a network security device designed to help protect your computer from hackers and other malicious people on the Internet.",define intent uniIntent: for endpoint('network') add middlebox('firewall')
 "The network firewall does prevent some applications from working in their normal manner, for example, video and audio conferencing products that use the H.323",define intent uniIntent: for endpoint('network') block traffic('H323 video conferencing')
 The UC Davis network is continually scanned for prohibited activities and network threats.,define intent uniIntent: for endpoint('network') add middlebox('traffic monitor')
+Halo me police block traffic for us students,define intent uniIntent: for group('students') block traffic('all')
+police block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+Students shall download no more than 20 GB per hour,"define intent uniIntent: for group('students') set quota('download', '20', 'gb')"
+"please lumi, define dorms quota to 10 gb per week","define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+"please lumi, define quota 100 gb per week to dorms","define intent uniIntent: for endpoint('dorms') set quota('download', '100', 'gb/wk')"
+"please lumi, block f2movies traffic from internet to labs",define intent uniIntent: from endpoint('gateway') to endpoint('labs') block service('F2movies')
+Limit servers to 5gbps during 5pm to 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps')"
+Block F2movies traffic for Labs,define intent uniIntent: for endpoint('labs') block service('F2movies')
+set quota to 10 GB per week at LAN,"define intent uniIntent: for protocol('LAN') set quota('download', '10', 'gb/wk')"
+Between internet and labs block traffic from F2movies,define intent uniIntent: from endpoint('gateway') to endpoint('labs') block service('F2movies')
+limit download fee of 10 Gb per user us bedrooms,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb')"
+add middlebox('dpi'),define intent uniIntent: for endpoint('network') add middlebox('dpi')
+Limit students in the dorm to 10 GB per week,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+block facebook traffic,define intent uniIntent: for traffic('all') block service('facebook')
+block f2movies on labs,define intent uniIntent: for endpoint('labs') block service('F2movies')
+block f2movies for students on the lab,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+limit servers bandwidth to 5gbps between 4 and 7,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps')"
+"hey Lumi, add dpi to labs",define intent uniIntent: for endpoint('labs') 
+add dpi to labs network,define intent uniIntent: for endpoint('labs') 
+block F2movies traffic to the labs,define intent uniIntent: for endpoint('labs') block service('F2movies')
+please limit bandwidth to 5 Gigabits per second for the server racks everyday from 4 PM to 7 PM,"define intent uniIntent: for endpoint('servers'), protocol('everyday') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+please limit bandwidth to 5 Gigabits per second for the server racks everyday from 4 PM to 7 PM,"define intent uniIntent: for endpoint('servers'), protocol('everyday') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+All traffic from the Internet to the Labs has to go to DPI server and then goes to the Labs.,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('has')
+Set bandwidth to 100 Mbps to Torrent traffic.,"define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Set 10 GB/wk quota from Internet to the Dorms.,"define intent uniIntent: from endpoint('gateway') to endpoint('dorms') set quota('download', '10', 'gb/wk')"
+set quota to 10 GB per week at servers,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+limit downloads to 1 gb,"define intent uniIntent: for endpoint('network') set quota('download', '1', 'gb/hr')"
+block all traffic,define intent uniIntent: for traffic('all') 
+Please block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+block all student traffic,define intent uniIntent: for group('students') block traffic('all')
+unblock traffic,define intent uniIntent: for endpoint('network') 
+Block F2movies traffic to Labs.,define intent uniIntent: for endpoint('labs') block service('F2movies')
+Limit guests to 100 mbps bandwidth for torrent traffice,"define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+"Lumi's, add a firewall and block F2movies traffic from students in labs","define intent uniIntent: for group('students'), endpoint('labs') add middlebox('firewall') block service('F2movies')"
+Limit server traffic from 4pm to 7pm up to 5Gbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+Limit traffic from 4pm to 7pm up to 5Gbps in servers,"define intent uniIntent: for traffic('all') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+Block all traffic for nintendo network to the staff,define intent uniIntent: for group('staff') block traffic('all')
+"Lumi, inspect using DPI all traffic from the Internet to the labs",define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+"Lumi, for the guest network, limit the traffic of torrent protocol to 100 MBPs","define intent uniIntent: for group('guests'), traffic('torrent'), traffic('all')  set bandwidth('max', '100', 'mbps')"
+"Lumi, for the guest network, limit the traffic of the torrent protocol to 100 MBPs","define intent uniIntent: for group('guests'), traffic('all'), traffic('torrent')  set bandwidth('max', '100', 'mbps')"
+"Lumi, for the guest network, limit the traffic of torrent protocol to 100 mbps","define intent uniIntent: for group('guests'), traffic('torrent'), traffic('all')  set bandwidth('max', '100', 'mbps')"
+"Lumi, for the guest network, limit the traffic of torrent protocol to 100 MBPs","define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+route all traffic to Labs through DMZ,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('DMZ')"
+limit all torrent traffic to 100 Mbps,"define intent uniIntent: for traffic('all'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+all incoming traffic to the labs must pass through a DPI,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+"Lumi, inspect all traffic for the studens labs",define intent uniIntent: for traffic('all') add middlebox('dpi')
+"Lumi, block all traffic to F2Movies for students on the Labs","define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies') traffic('all')"
+"Lumi, block all torrent traffic","define intent uniIntent: for endpoint('network') block traffic('all'), traffic('torrent')"
+"Hey Lumi, please limit the bandwith from gateway to servers to 5Gbps everyday from 4:00PM to 7:00PM","define intent uniIntent: from endpoint('gateway') to endpoint('servers') for protocol('everyday') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+block f2movies.com students labs,define intent uniIntent: for group('students') block service('F2movies')
+set students quota to 10gb per week,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+set students quota do 10gb at the dorms,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/hr')"
+direct all traffic from from gateway through DMZ to servers,"define intent uniIntent: for endpoint('servers'), endpoint('gateway'), traffic('all') add middlebox('DMZ')"
+limit P2P traffic between LAN and Guests to 100 Mbps,"define intent uniIntent: for endpoint('guests'), endpoint('LAN'), traffic('all') set bandwidth('max', '2', 'mbps')"
+block traffic from f2movies going to students in the labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+students labs block traffic,define intent uniIntent: for group('students') block traffic('all')
+Only allow the DNS server to use DNS.  Block all other inbound and outbound requests,define intent uniIntent: for endpoint('network') allow protocol('dns') 
+5 Gbps bandwidth limit for the server racks from 4PM to 7PM,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+from network to dpi,define intent uniIntent: for endpoint('network') add middlebox('dpi')
+"Hi Lumi, set torrent traffic bandwidth to limit 100 Mbps","define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+limit 10 GB per week download from Internet  to Dorms,"define intent uniIntent: from endpoint('gateway') to endpoint('dorms') set quota('download', '10', 'gb/wk')"
+block F2movies traffic,define intent uniIntent: for endpoint('network') block service('F2movies')
+inspect all traffic from the internet,"define intent uniIntent: for endpoint('gateway'), traffic('all') add middlebox('dpi')"
+"Hey lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+o ensure that all traffic from the Internet to the labs is carefully inspected by the Deep Packet Inspection middlebox.,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+block f2movies for students in labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+"hey lumi, please allow traffic only from professors",define intent uniIntent: for group('professors') 
+"please lumi, define quota to 10 gb per week to dorms","define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+Block f2movies traffic for labs,define intent uniIntent: for endpoint('labs') block service('F2movies')
+Set 10 GB per week as download quota for the dorms,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+"Hey Lumi, drive the studants traffic to DPI and then to Labs","define intent uniIntent: for endpoint('labs'), protocol('studants') add middlebox('dpi')"
+set a 5 Gbps bandwidth limit for the server racks from 4PM to 7PM,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+Set quota to 10 GB per week at dorms,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+inspect all traffic by DPI,define intent uniIntent: for traffic('all') add middlebox('dpi')
+set a 5 Gbps bandwidth limit for the server racks from 4PM to 7PM.,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+block porn for network 192.168.0.0/24,define intent uniIntent: for endpoint('network') block service('porn')
+limit torrent traffic to 100mbps,"define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+limit students data to 10gb week,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb')"
+limit dorms traffic 10gb per week,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+Block F2movies traffic from Internet to Labs.,"define intent uniIntent: for endpoint('gateway'), endpoint('labs') block service('F2movies')"
+set quota to 10 GB per week at servers,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+block all traffic in the network,define intent uniIntent: for endpoint('network') block traffic('all')
+block all student traffic in the network,"define intent uniIntent: for group('students'), traffic('all'), endpoint('network') "
+limit servers traffic to 5gbps between 4pm and 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+Limit the traffic to Dorms to 10 GB per week.,"define intent uniIntent: for endpoint('dorms'), traffic('all') set quota('download', '10', 'gb/wk')"
+Send internet traffic through DPI,define intent uniIntent: for endpoint('gateway') add middlebox('dpi')
+Block F2movies traffic going to labs,define intent uniIntent: for endpoint('labs') block service('F2movies')
+"Lumi, inspect all traffic from the Internet to the student labs in the DPI",define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+"Lumi, limit the the torrent traffic to 100 Mbps","define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+"Lumi, I want you to block all traffic from the F2movies to students in labs","define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies') traffic('all')"
+block f2movies traffic to labs,define intent uniIntent: for endpoint('labs') block service('F2movies')
+block f2movies traffic for students in labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+limit traffic to server racks to 5 gbps from 4pm to 7pm,"define intent uniIntent: for traffic('all'), endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+limit the bandwith from servers to 5 gbps from 4pm to 7pm,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Hey Lumi, please limit the bandwith from gateway to servers to 5Gbps from 4PM-7PM","define intent uniIntent: from endpoint('gateway') to endpoint('servers') set bandwidth('max', '5', 'gbps')"
+rate limit guests 100mbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '100', 'mbps')"
+student quota dorm 10gb week,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+student quota dorms 10gb week,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+set torrent bandwidth to 100 Mbps,"define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+limit guest torrent traffic to 100 Mbps,"define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+"Lumi, let's configure the network for dpi","define intent uniIntent: for endpoint('network')  add middlebox('configure'), middlebox('dpi')"
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Block all traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+limit guest network to 100 mbps,"define intent uniIntent: for group('guests') set bandwidth('max', '100', 'mbps')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+from endpoint('Internet')     to endpoint('labs')     block service('F2movies'),define intent uniIntent: for endpoint('network') block service('F2movies') add middlebox('Internet')
+block F2movies traffic for students in the labs.,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+limit torrent traffic to 100 mbps for guests,"define intent uniIntent: for endpoint('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Employees may only use 15GB of data per month,define intent uniIntent: for endpoint('network')
+block bob's traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+"hey lumi, please help my network be profitable",define intent uniIntent: for endpoint('network')
+block F2movies for students in labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"hey lumi, block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+Remove all firewall,define intent uniIntent: for endpoint('network') remove middlebox('firewall')
+limit the bandwidth of the guests to 100Mbps,"define intent uniIntent: for endpoint('guests') set bandwidth('max', '100', 'mbps')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"please lumi, limit guests torrent bandwidth to 100 Mbps","define intent uniIntent: for traffic('guests') set bandwidth('max', '100', 'mbps')"
+"please lumi, block f2movies traffic from internet to students labs","define intent uniIntent: for group('students'), endpoint('gateway') block service('F2movies')"
+set a 5 Gbps bandwidth limit for the server racks from 4PM to 7PM,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+Set a 100 Mbps the bandwidth limit from Internet to Guests,"define intent uniIntent: for group('guests'), endpoint('gateway') set bandwidth('max', '100', 'mbps')"
+internet traffic to lan is limited to 100mbps,"define intent uniIntent: from endpoint('gateway') to endpoint('LAN') set bandwidth('max', '100', 'mbps')"
+internet traffic to lan is limited to 100mbps,"define intent uniIntent: from endpoint('gateway') to endpoint('LAN') set bandwidth('max', '100', 'mbps')"
+internet traffic to lan is limited to 100mbps,"define intent uniIntent: from endpoint('gateway') to endpoint('LAN') set bandwidth('max', '100', 'mbps')"
+internet traffic to lan is limited to 100mbps,"define intent uniIntent: from endpoint('gateway') to endpoint('LAN') set bandwidth('max', '100', 'mbps')"
+internet to lan guota is 10gb/wk,"define intent uniIntent: for endpoint('LAN') set quota('download', '10', 'gb/wk')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+alguien me hackeado las redes sociales puedes averiguar quien fue,define intent uniIntent: for endpoint('network') allow traffic('social-media')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+Add firewall from the gateway to the backend for client B with at least 100 mbps of bandwidth,"define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall') set bandwidth('max', '100', 'mbps')"
+Add firewall from the gateway to the backend with at least 100 mbps of bandwidth,"define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall') set bandwidth('max', '100', 'mbps')"
+Add firewall from the gateway to the backend for client B with at least 100 mbps of bandwidth and allow HTTPS only,"define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+Add firewall from the gatewy to the backend for teachers with at least 100mbps of bandwidth,"define intent uniIntent: for group('professors'), endpoint('backend') add middlebox('firewall') set bandwidth('max', '100', 'mbps')"
+Add firewall and add firewall,define intent uniIntent: for endpoint('network') add middlebox('firewall') 
+add firewall and intrusion detection,"define intent uniIntent: for endpoint('network') add middlebox('firewall'), middlebox('ids')"
+add firewall,define intent uniIntent: for endpoint('network') add middlebox('firewall')
+block teachers,define intent uniIntent: for group('professors') 
+block facebook,define intent uniIntent: for endpoint('network') block service('facebook')
+Block Facebook,define intent uniIntent: for endpoint('network') block service('facebook')
+"add firewall and intrusion detection from the  gateway to the backend for client B with at least 100 mbps of  bandwidth, and allow HTTPS only","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+"add firewall and intrusion detection from the  gateway to the backend for client B with at least 100 mbps of  bandwidth, and allow HTTPS only","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+"add firewall and intrusion detection from the  gateway to the backend for teachers with at least 100 mbps of  bandwidth, and allow HTTPS only","define intent uniIntent: from endpoint('gateway') to endpoint('backend') for group('professors') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+"Lumi, for the guest network, limit the traffic of torrent protocol to 100 mbps","define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+unblock facebook,define intent uniIntent: for endpoint('network') allow service('facebook')
+unblock facebook,define intent uniIntent: for endpoint('network') allow service('facebook')
+unblock traffic,define intent uniIntent: for endpoint('network') 
+block facebook,define intent uniIntent: for endpoint('network') block service('facebook')
+Block F2movies traffic from Internet to Labs,define intent uniIntent: from endpoint('gateway') to endpoint('labs') block service('F2movies')
+Block F2movies traffic from Internet to student Labs,define intent uniIntent: from endpoint('gateway') to endpoint('labs') block service('F2movies')
+Block F2movies traffic from Internet to student Labs,define intent uniIntent: from endpoint('gateway') to endpoint('labs') block service('F2movies')
+"hey Lumi, add dpi to labs",define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+"Lumi, for the guest network, limit the traffic of torrent protocol to 100 mbps","define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+unblock facebook,define intent uniIntent: for endpoint('network') allow service('facebook')
+unblock traffic,define intent uniIntent: for endpoint('network') 
+block facebook,define intent uniIntent: for endpoint('network') block service('facebook')
+Block F2movies traffic from Internet to Labs,define intent uniIntent: from endpoint('gateway') to endpoint('labs') block service('F2movies')
+Block F2movies traffic from Internet to student Labs,define intent uniIntent: from endpoint('gateway') to endpoint('labs') block service('F2movies')
+Add DPI middlebox into all traffic from Internet to the Labs,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+All traffic from the Internet to the Labs has to go to DPI server and then goes to the Labs,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+add dpi to labs network,define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+"Hey Lumi, add DPI to the labs network",define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+"hey Lumi, add dpi to labs",define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+limit servers bandwidth to 5 gbps between 4pm and 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+unblock facebook traffic,define intent uniIntent: for endpoint('network') allow service('facebook traffic')
+allow all traffic,define intent uniIntent: for endpoint('network') 
+allow all traffic,define intent uniIntent: for endpoint('network') 
+block all student traffic in the network,"define intent uniIntent: for group('students'), endpoint('network') block traffic('all')"
+block all student traffic in the network,"define intent uniIntent: for group('students'), endpoint('network') block traffic('all')"
+Block all student traffic in the network,"define intent uniIntent: for group('students'), endpoint('network') block traffic('all')"
+block all student traffic,define intent uniIntent: for group('students') block traffic('all')
+block all traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+Limit students in the dorm to 10 GB per week,"define intent uniIntent: for group('students'), endpoint('dorm') set quota('download', '10', 'gb/wk')"
+Make sure all traffic from the Internet to the labs is inspected by the DPI middlebox,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+Between internet and servers limit traffic to 5 Gbps start 16:00 finish 19:00,"define intent uniIntent: from endpoint('gateway') to endpoint('servers') for traffic('all') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+Between internet and servers limit traffic to 5 Gbps interval 4pm to 7pm,"define intent uniIntent: from endpoint('gateway') to endpoint('servers') for traffic('all') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+limit the bandwidth to 5 Gb for rack servers from 4 pm until 7 pm,"define intent uniIntent: for endpoint('network') set quota('download', '5', 'gb/hr') start hour('16:00') end hour('19:00')"
+limit the bandwidth to 5 Gb for rack servers from 4 to 7 pm,"define intent uniIntent: for endpoint('network') set quota('download', '5', 'gb/hr')"
+limit traffic to 5 Gbps between internet and servers or 16:00 to 19:00,"define intent uniIntent: from endpoint('gateway') to endpoint('servers') for traffic('all') set bandwidth('max', '5', 'gbps')"
+limit traffic to 5 Gbps between internet and servers from 16:00 to 19:00,"define intent uniIntent: from endpoint('gateway') to endpoint('servers') for traffic('all') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+set quota to 10 GB per week at labs,"define intent uniIntent: for endpoint('labs') set quota('download', '10', 'gb/wk')"
+set quota to 10 GB per week at servers,"define intent uniIntent: for endpoint('servers') set quota('download', '10', 'gb/wk')"
+Set quota to 10 GB per week dorms,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+Set quota to 10 GB per week at guest,"define intent uniIntent: for endpoint('guests') set quota('download', '10', 'gb/wk')"
+Set quota to 10 GB per week at dorms,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+set quota to 10 GB per week at LAN,"define intent uniIntent: for endpoint('LAN') set quota('download', '10', 'gb/wk')"
+block all traffic at Dorms location,define intent uniIntent: for endpoint('dorms') block traffic('all')
+Limit traffic to 10 GB per week at Dorms,"define intent uniIntent: for endpoint('dorms'), traffic('all') set quota('download', '10', 'gb/wk')"
+for endpoint dorms set quota download 10 gb/wk,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+t endpoint Dorms set quota to 10 GB per week,"define intent uniIntent: for endpoint('network') set quota('download', '10', 't endpoint')"
+At endpoint Dorms set quota to 10 GB per week,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+Students shall download no more than 1000000 MB per week,"define intent uniIntent: for endpoint('network') set quota('download', '1000000', 'mb/wk')"
+"hey lumi, please add a DPI to ensure students from the labs are not accessing suspicious applications",define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+"hey lumi, please add a DPI to ensure students from the labs are not accessing suspicious applications",define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+Limit rack servers to 5 gbps during 5pm to 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('17:00') end hour('19:00')"
+Limit rack servers to 5 gbps during 5pm to 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('17:00') end hour('19:00')"
+Limit servers to 5 gbps during 5pm to 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('17:00') end hour('19:00')"
+Set 5 gbps limit for servers during 4pm to 7pm,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"please lumi, block f2movies traffic from internet to students labs","define intent uniIntent: for endpoint('labs'), endpoint('gateway') block service('F2movies')"
+"hey lumi, please allow traffic only from professors",define intent uniIntent: for group('professors') 
+"hey lumi, please allow traffic only from professors",define intent uniIntent: for group('professors') 
+"please lumi, define dorms quota to 10 gb per week","define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+"please lumi, define dorms quota to 10 gb per week","define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+Students shall download no more than 1000000 megabytes per week,"define intent uniIntent: for endpoint('network') set quota('download', '1000000', 'mb/wk')"
+students shall download no more than 1000000 megabytes per week,"define intent uniIntent: for endpoint('network') set quota('download', '1000000', 'mb/wk')"
+please limit bandwidth to 5 Gigabits per second for the server racks everyday from 4 PM to 7PM,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+limit the bandwidth in server racks to 5 gbps between 4pm and 7pm,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+I want the torrent traffic from guest users to be no more than 100 mbps,"define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+limit network usage of all students in the dorms to no more than 10 gb per seven days,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+prevent all f2movies traffic from reaching the students in the labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+Add monitor for the university from 4am to 10pm,define intent uniIntent: for endpoint('university') add middlebox('traffic monitor') start hour('04:00') end hour('22:00')
+set a maximum of 5 gbps to the servers from 4pm to 7pm,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+students should download no more than 10 GB of data in a week,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+unblock facebook,define intent uniIntent: for endpoint('network') allow service('facebook')
+block all traffic from students,define intent uniIntent: for group('students') block traffic('all')
+please limit bandwidth to 5 Gigabits per second for the server racks everyday from 4 PM to 7PM,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+please limit bandwidth to 5 Gigabits per second for the server racks everyday from four to seven pm,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps')"
+block F2movies  traffic from Internet to stude nt Labs,"define intent uniIntent: for endpoint('gateway'), endpoint('labs') block service('F2movies')"
+block F2movies  traffic from Internet to stude nt Labs,"define intent uniIntent: for endpoint('gateway'), endpoint('labs') block service('F2movies')"
+block F2movies  traffic from Internet to student Labs,"define intent uniIntent: for endpoint('gateway'), endpoint('labs') block service('F2movies')"
+allow all traffic,define intent uniIntent: for endpoint('network') 
+Block facebook,define intent uniIntent: for endpoint('network') block service('facebook')
+add firewall and intrusion detection from the gateway to the backend for professors with at least 100 mbps of bandwidth and allow HTTPS only,"define intent uniIntent: from endpoint('gateway') to endpoint('backend') for group('professors') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+"""University Housing monitors only the amount of traffic of each user""",define intent uniIntent: for group('users') add middlebox('traffic monitor')
+University Housing monitors only the amount of traffic of each user,define intent uniIntent: for group('users') add middlebox('traffic monitor')
+University Housing monitors only the amount of traffic of each user,define intent uniIntent: for group('users') add middlebox('traffic monitor')
+CounterStrike server is blocked by the University firewall,"define intent uniIntent: for endpoint('university'), service('CounterStrike server') add middlebox('block')"
+CounterStrike server is blocked by the University firewall,"define intent uniIntent: for endpoint('university'), service('CounterStrike server') add middlebox('block')"
+"Hey, Lumi! Inspect traffic for students in the dorms.","define intent uniIntent: for group('students'), endpoint('dorms'), traffic('all') add middlebox('dpi')"
+block facebook,define intent uniIntent: for endpoint('network') block service('facebook')
+block youtube,define intent uniIntent: for endpoint('network') block service('youtube')
+add firewall to facebook traffic,define intent uniIntent: for service('facebook traffic') add middlebox('firewall')
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"""Guests' network is rate-limited to 5 Mb/s per user""","define intent uniIntent: for group('guests'), group('users') set bandwidth('max', '5', 'mbps')"
+"Add a firewall between ""172.16.15.5"" and ""172.16.25.3""","define intent uniIntent: for endpoint('network') add middlebox('firewall'), middlebox('""')"
+add firewall and intrusion detection from the gateway to the backend for professors with at least 100mbps of bandwidth and allow HTTPS only,"define intent uniIntent: from endpoint('gateway') to endpoint('backend') for group('professors') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+I want the torrent traffic from guest users to be no more than 100 mbps,"define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+I want the at&t traffic from guest users to be no more than 100 mbps,"define intent uniIntent: for endpoint('at&t'), group('guests') set bandwidth('max', '100', 'mbps')"
+"Currently, the University of Illinois does not have any rate limits",define intent uniIntent: for endpoint('University of Illinois')
+"Currently, the University of Illinois does not have any rate limits",define intent uniIntent: for endpoint('University of Illinois')
+CounterStrike server is blocked by the University firewall,"define intent uniIntent: for endpoint('university'), service('CounterStrike server') add middlebox('block')"
+"Lumi, block VoIP traffic from 00:00 to 06:00",define intent uniIntent: for endpoint('network') block traffic('VoIP') start hour('24:00') end hour('06:00')
+Can you block VoIP traffic from midnight to 6AM?,define intent uniIntent: for traffic('all') block traffic('VoIP') start hour('24:00') end hour('06:00')
+I meant to say from 1AM to 6AM,define intent uniIntent: for endpoint('network') start hour('01:00') end hour('06:00')
+"hey lumi, please add a DPI to ensure students from the labs are not accessing suspicious applications",define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+Students shall download no more than 1000000 megabytes per week,"define intent uniIntent: for endpoint('network') set quota('download', '1000000', 'mb/wk')"
+set bandwidth to at least 100 mbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '100', 'mbps')"
+set bandwidth to at least 100 mbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '100', 'mbps')"
+can you block VoIP traffic from 12 AM to 6 AM?,define intent uniIntent: for traffic('all') block traffic('VoIP') start hour('24:00') end hour('06:00')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+"Lumi, set a 5 Gbps limit for the Servers from 4PM to 7PM","define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+At endpoint Dorms set quota to 10 GB per week,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+block all traffic at Dorms location,define intent uniIntent: for endpoint('network') block traffic('all')
+endpoint dorms set quota to 10 GB per week,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+inspect all traffic from LABS through DPI,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+Between internet and labs block traffic from students to f2movies,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for group('students') block service('F2movies')
+Between internet and servers limit traffic to 5Gbps interval 4pm to 7pm,"define intent uniIntent: from endpoint('gateway') to endpoint('servers') set bandwidth('max', '5', 'gbps')"
+Limit torrent traffic to guest users to 100 mbps.,"define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+please block traffic for all students.,define intent uniIntent: for group('students') block traffic('all')
+block site F2movies traffic  for students in the labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+"Hey Lumi, add DPI to the labs network",define intent uniIntent: for endpoint('labs') 
+"hey lumi, please limit bandwidth for torrent traffic to 100 Mbps","define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+set quota to 10 GB per week at labs,"define intent uniIntent: for endpoint('labs') set quota('download', '10', 'gb/wk')"
+set quota to 10 GB per week at servers,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+allow all student traffic in the network,"define intent uniIntent: for group('students'), traffic('all'), endpoint('network') "
+allow all traffic in the network,define intent uniIntent: for endpoint('network') 
+block traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+Limit the traffic to server racks to 5 Gbps from 4 pm to 7 pm.,"define intent uniIntent: for traffic('all'), endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+Limit traffic to dorms to 10 gb download per week,"define intent uniIntent: for endpoint('dorms'), traffic('all') set quota('download', '10', 'gb/hr')"
+block F2Movies for students in labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+Lumi block all site with 'xxx',define intent uniIntent: for endpoint('network') 
+"Lumi, limit to students to a maximum per week download of 10 GB in dorms","define intent uniIntent: for group('students') set quota('download', '10', 'per week')"
+Limit server bandwidth from 4pm to 7pm up to 5Gbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+route all traffic through DPI,define intent uniIntent: for traffic('all') add middlebox('dpi')
+route all traffic to Labs through DPI,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+route all traffic to Labs through DPI,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+dorms are allowed to download 10 gb per week,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+block F2movies traffic for students in the labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+set a 5 Gbps bandwidth limit for the server racks from 4PM to 7PM,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Lumi, for the guests network limit torrent traffic to 100MBps","define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+"Lumi, limit the bandwidth to the servers to 5Gbps from 4PM to 7PM","define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Hey Limi, please redirect all traffic from internet to DPI",define intent uniIntent: for endpoint('gateway') 
+Please limit the torrent traffic from gateway to guest to 100Mbps,"define intent uniIntent: for endpoint('gateway'), group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+"Hey Lumi, please reduce bandwidth traffic for all students","define intent uniIntent: for group('students'), traffic('all')"
+close link between DMZ and labs,"define intent uniIntent: for endpoint('labs'), endpoint('DMZ')  add middlebox('link')"
+block all traffic between dmz and labs,define intent uniIntent: from endpoint('DMZ') to endpoint('labs') block traffic('all')
+block all traffic between DMZ and labs,define intent uniIntent: from endpoint('DMZ') to endpoint('labs') block traffic('all')
+allow all traffic between dmz and servers,define intent uniIntent: from endpoint('DMZ') to endpoint('servers') 
+limit all traffic between LAN and gests to 100 Mbps,"define intent uniIntent: for endpoint('LAN'), traffic('all') set bandwidth('max', '100', 'mbps')"
+limit all traffic between LAN and Guests to 100 Mbps,"define intent uniIntent: for endpoint('guests'), endpoint('LAN'), traffic('all') set bandwidth('max', '100', 'mbps')"
+Make all traffic get inspected by the deep packet inspection middle box.,define intent uniIntent: for traffic('all') add middlebox('dpi')
+"Lumi, Lets configure the Lab networks for deep packet inspection",define intent uniIntent: for endpoint('labs')  add middlebox('dpi')
+limit students to 10GB of download per week,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/hr')"
+block f2movies for students in labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+"Hi Lumi, set all flows traffic to DPI",define intent uniIntent: for endpoint('network')  add middlebox('dpi')
+all traffic from the internet to the labs inspected by the DPI,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Hey Lumi, please inspect all traffic for the labs","define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+for students in the labs block f2movies,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+set a 5 Gbps bandwidth limit for the server racks from 4PM to 7PM.,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+The exchange of data between the company’s headquaters and its remote production sites is to be done between 18:00 and 22:00 hours in encrypted mode,define intent uniIntent: for endpoint('network') allow service('remote') start hour('18:00') end hour('22:00')
+block netflix,define intent uniIntent: for endpoint('network') block service('netflix')
+block traffic in dorms,define intent uniIntent: for endpoint('dorms') block traffic('all')
+limit server bandwidth to 5gbps from 4pm to 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+block traffic from dorm,define intent uniIntent: for endpoint('dorms') 
+"Add firewall and intrusion detection from gateway to backend for client B, with latency less than 10ms and 100mbps of bandwidth, and allow HTTPS only, everyday from 09:00 to 18:00","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https'), protocol('everyday') set bandwidth('max', '10', 'mbps') start hour('09:00') end hour('18:00')"
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"Please Lumi, forward all internet traffic to the DPI",define intent uniIntent: for endpoint('gateway') add middlebox('dpi')
+"please lumi, define dorms quota to 10 gb per week","define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+set a 10 GB per week download quota for dorms.,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+Students shall download no more than 1000000 MB per week,define intent uniIntent: for group('students')
+I meant to say from 1 AM to 6 AM,define intent uniIntent: for endpoint('network') start hour('01:00') end hour('06:00')
+Students shall download no more than 1000000 MB per week,"define intent uniIntent: for endpoint('network') set quota('download', '1000000', 'mb/wk')"
+"Lumi, for the guest network, limit the traffic of torrent protocol to 100 mbps","define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+"Currently, the University of Illinois does not  have any rate limits set in place",define intent uniIntent: for endpoint('University of Illinois') 
+does not have any rate limits,define intent uniIntent: for endpoint('network')
+University Housing monitors only the amount of traffic of each user,define intent uniIntent: for group('users') add middlebox('traffic monitor')
+Housing does not normally limit the amount of bandwidth,define intent uniIntent: for endpoint('network')
+please remove DPI from DMZ starting at 6am until 9pm,define intent uniIntent: for endpoint('DMZ') remove middlebox('dpi') start hour('06:00') end hour('21:00')
+please do not let any music streaming in the network,define intent uniIntent: for endpoint('network') block traffic('streaming')
+"Currently, the University of Illinois does not have any rate limits",define intent uniIntent: for endpoint('University of Illinois')
+"Currently, the University of Illinois does not have any rate limits",define intent uniIntent: for endpoint('University of Illinois')
+"Currently, the University of Illinois does not have any rate limits",define intent uniIntent: for endpoint('University of Illinois')
+"Please, Lumi, block Youtube and all other streaming traffic","define intent uniIntent: for endpoint('network') block service('youtube') traffic('all'), traffic('streaming')"
+The system will trigger an overuse notification if the average for either inbound or outbound usage exceeds 10 GB per week,"define intent uniIntent: for service('trigger') add middlebox('overuse') set quota('download', '10', 'gb/wk')"
+unblock traffic,define intent uniIntent: for endpoint('network') 
+Block F2movies traffic from Internet to Labs,define intent uniIntent: from endpoint('gateway') to endpoint('labs') block service('F2movies')
+block incoming tcp connection from the internet,define intent uniIntent: for endpoint('gateway') block protocol('tcp')
+block incoming tcp connection whose destination port is smaller than 1024 from the internet,define intent uniIntent: for endpoint('gateway') block service('1024') protocol('tcp')
+block incoming tcp connection from the internet,define intent uniIntent: for endpoint('gateway') block protocol('tcp')
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Sony Playstation 2 is allowed by the University firewall,"define intent uniIntent: for endpoint('university'), service('PlayStation 2')"
+Please make traffic coming from the Internet pass through a firewall,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+I want to listen music,define intent uniIntent: for endpoint('network') allow traffic('streaming')
+I want to listen music,define intent uniIntent: for endpoint('network') allow traffic('streaming')
+Please make traffic coming from the Internet pass through a firewall,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+students traffic block 1am to 3am,define intent uniIntent: for group('students') block service('1')
+block traffic between 1am and 3am,define intent uniIntent: for endpoint('network') block traffic('all') start hour('01:00') end hour('03:00')
+set bandwidth to at most 100 mbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '100', 'mbps')"
+set bandwidth to at least 100 mbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '100', 'mbps')"
+Can you block VoIP traffic from 12 AM to 6 AM?,define intent uniIntent: for traffic('all') block traffic('VoIP') start hour('24:00') end hour('06:00')
+"Sorry, I meant to say from 1 AM to 6 AM",define intent uniIntent: for endpoint('network') start hour('01:00') end hour('06:00')
+The University of Illinois does not have any rate limits set in place,define intent uniIntent: for endpoint('University of Illinois') 
+SMTP is allowed by the University firewall,"define intent uniIntent: for endpoint('university'), protocol('smtp')"
+"hey lumi, can you set the bandwith for students at 30mbps?","define intent uniIntent: for group('students') set bandwidth('max', '30', 'mbps')"
+"Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+block traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+check all traffic from the Labs using the DPI middlebox,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+"Add firewall and intrusion detectionfrom the gateway to the backend for client B with at least100mbps of bandwidth, and allow HTTPS only","define intent uniIntent: for endpoint('backend') add middlebox('firewall'), middlebox('intrusion') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for some students.",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for some students.",define intent uniIntent: for group('students') block traffic('all')
+"Hey, Lumi!  Inspect traffic for students in the dorms.","define intent uniIntent: for group('students'), endpoint('dorms'), traffic('all') add middlebox('dpi')"
+Hi Lumi! Inspect student traffic in classrooms.,"define intent uniIntent: for group('students'), traffic('all') add middlebox('dpi')"
+"please lumi, forward all internet traffic to the DPI then to labs","define intent uniIntent: for endpoint('labs'), endpoint('gateway') add middlebox('dpi')"
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+"""Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Block mail traffic,define intent uniIntent: for traffic('all') block service('email')
+Block mail traffic during the afternoon,define intent uniIntent: for endpoint('network') block service('email')
+block youtube,define intent uniIntent: for endpoint('network') block service('youtube')
+block facebook,define intent uniIntent: for endpoint('network') block service('facebook')
+Please limit the traffic in the library room,define intent uniIntent: for endpoint('network') 
+Inspect traffic in the dorm,"define intent uniIntent: for endpoint('dorm'), traffic('all') add middlebox('dpi')"
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+I want to access to full grammar of Lumi,define intent uniIntent: for endpoint('network')
+Block traffic for the Dorm,define intent uniIntent: for endpoint('dorm') 
+Inspect traffic from Youtube,"define intent uniIntent: for service('youtube'), traffic('all') add middlebox('dpi')"
+Can you tell me how fast the internet speed is here,"define intent uniIntent: for endpoint('network') add middlebox('tell'), middlebox('how')"
+Add description to node a interface,define intent uniIntent: for endpoint('network') add middlebox('description')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Do not block traffic from students,define intent uniIntent: for group('students') 
+make traffic coming from students pass through a firewall,define intent uniIntent: for group('students') add middlebox('firewall')
+please increase the bandwidth usage to 1000 mbps for students,define intent uniIntent: for group('students') 
+please increase the bandwidth usage to 1000 mbps for students,define intent uniIntent: for group('students') 
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+how can i find how much i payed social contribution?,define intent uniIntent: for traffic('social-media')
+can i know how many payments i paid social security?,define intent uniIntent: for traffic('social-media')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+tudents can download up to 10 GB per week of data,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+students can download up to 19 GB per week of data,define intent uniIntent: for group('students')
+tudents can download up to 50 GB per week of data,"define intent uniIntent: for endpoint('network') set quota('download', '50', 'gb/wk')"
+tudents can download up to 10 GB per week of data,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+tudents can download up to 10 GB per week of data,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+tudents can download up to 10 GB per of data,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/hr')"
+tudents can download up to 10 GB per week of data,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+"Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, drive the studants traffic to DPI and then to Labs","define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+"Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+check the ping of my network,define intent uniIntent: for endpoint('network')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"Add firewall and intrusion detection from the gateway to the backend for client B with at least 100mbps of bandwidth, and allow HTTPS only","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students at 2 am",define intent uniIntent: for group('students') block service('at 2 am') traffic('all')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+Limit students group in the dorm to 10 GB per week,"define intent uniIntent: for group('students'), endpoint('dorm') set quota('download', '10', 'gb/wk')"
+Limit students in the dorm to 10 GB per week,"define intent uniIntent: for group('students'), endpoint('dorm') set quota('download', '10', 'gb/wk')"
+unblock facebook,define intent uniIntent: for endpoint('network') allow service('facebook')
+limit network usage of all students in the dorms to no more than 10 gb per seven days,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+show all groups,define intent uniIntent: for endpoint('network')
+"Hey Lumi, please unblock traffic for all students",define intent uniIntent: for group('students') 
+"Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+block traffic for the dorm!,define intent uniIntent: for endpoint('dorm') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Limit bandwidth usage to 50 mbps for students,"define intent uniIntent: for group('students') set bandwidth('max', '50', 'mbps')"
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"""Students can download up to 10 GB per week of data.","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+"""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"hey lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+limit bandwidth usage to 50 mbps for students.,"define intent uniIntent: for group('students') set bandwidth('max', '50', 'mbps')"
+"hey lumi, enable professors to download a maximum of 5 GB of data per month.","define intent uniIntent: for group('professors') set quota('download', '5', 'gb/hr')"
+I want to reset passwords for all sites to default,define intent uniIntent: for traffic('all')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+Students can download upto 10GB data per week,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/hr')"
+Create a VLAN on the students router,"define intent uniIntent: for group('students'), protocol('VLAN')"
+Create VLAN vlan-10 with CIDR 192.168.10.0/24 for the new office for faculty,"define intent uniIntent: for group('staff'), traffic('VLAN') add middlebox('Create')"
+Please display the startup config on the students router,define intent uniIntent: for group('students') allow traffic('startup')
+display the running configuration on the student router,define intent uniIntent: for group('students')
+I want to design configurations for my campus network,define intent uniIntent: for endpoint('campus') add middlebox('design configurations')
+connect host 192.168.0.1 to host 10.35.0.1,define intent uniIntent: for endpoint('hosts')
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Create VLAN vlan-10 with CIDR 192.168.10.0/24 for the new office for faculty,"define intent uniIntent: for group('staff'), traffic('VLAN') add middlebox('Create')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+please shut down all networks,define intent uniIntent: for traffic('all')
+please block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"Hey Lumi, limit to 10 GB per week the download traffic of students","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"Hey Lumi, limit to 10 GB per week the download traffic of Dorms","define intent uniIntent: for endpoint('dorms'), traffic('all') set quota('download', '10', 'gb/wk')"
+"Lumi, set a 5 Gbps limit fot the Servers from 4PM to 7PM","define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+set quota to 10 GB per week at labs,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+limit traffic to 5Gbps  Between internet and servers from 16:00 to 19:00,"define intent uniIntent: from endpoint('gateway') to endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+block the F2movies website for lab students,"define intent uniIntent: for endpoint('labs'), group('students') block service('F2movies')"
+unblock facebook traffic,define intent uniIntent: for service('facebook')
+"please, limit the torrent traffic to 100Mbps","define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+update network quota for dorms to 10GB/wk,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+block traffic coming from F2movies in the labs,define intent uniIntent: for endpoint('labs') block service('F2movies')
+"hi lumi, please set a maximum download quota of 10 GB per week for students in dorms","define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+"hey lumi, please block F2movies traffic for students in the labs","define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+set quota to 10 GB per week at servers,"define intent uniIntent: for endpoint('servers') set quota('download', '10', 'gb/wk')"
+block all traffic,define intent uniIntent: for traffic('all') 
+block facebook traffic,define intent uniIntent: for service('facebook') 
+block all traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+limit every outgoing link from dorms to 10GB per week,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+Limit server access from 4pm to 7pm up to 5Gbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+block traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+limit the traffic from 4pm to 7pm to 5gbps to servers,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+block all traffic from students,define intent uniIntent: for group('students') block traffic('all')
+do not block https from professors,define intent uniIntent: for group('professors') 
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+traffic from dorms are allowed to download 10 gb per week,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+set a 10 GB per week download quota for students in dorms,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+"Lumi, limit the bandwidth to the dorms to 10GB per week","define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+"Lumi, block all traffic to F2Movies for the Labs",define intent uniIntent: for endpoint('labs') block service('F2movies') traffic('all')
+"Hey Lumi, please limit the bandwith from gateway to servers to 5Gbps from 4PM to 7PM","define intent uniIntent: from endpoint('gateway') to endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+rate limit torrent 100mbps,"define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+"Hey Lumi, please block outgoing traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+limit torrent traffic between LAN and Guests to 100 Mbps,"define intent uniIntent: for endpoint('guests'), endpoint('LAN'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+limit students in dorms to download 10 GB per week,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+Limit bandwidth to 5 Gbps for the server racks from 4pm to 7pm,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+block students in the labs from accessing F2movies,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+set a 5 Gbps bandwidth limit for the server racks from 4PM to 7PM.,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Latency for client B must be less than 10 ms and 100 mbps of bandwidth, and allow HTTPS only, everyday from 9:00 to 18:00","define intent uniIntent: for endpoint('network') allow protocol('https'), protocol('everyday') set bandwidth('max', '10', 'mbps')"
+limit traffic to 5Gbps  Between internet and servers,"define intent uniIntent: from endpoint('gateway') to endpoint('servers') for traffic('all') set bandwidth('max', '5', 'gbps')"
+limit guest traffic to 100 mbps,"define intent uniIntent: for group('guests'), traffic('all') set bandwidth('max', '100', 'mbps')"
+limit guest torrent bandwidth to 100 mpbs,"define intent uniIntent: for group('guests'), traffic('torrent') set quota('download', '100', 'mpbs')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"Add firewall and intrusion detection from the gateway to the backend for client B with at least 100mbps ofbandwidth, and only accept HTTPS packages","define intent uniIntent: from endpoint('gateway') to endpoint('backend') for protocol('https') add middlebox('firewall'), middlebox('ids') set bandwidth('max', '100', 'mbps')"
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+redirect traffic for Eric through a firewall,define intent uniIntent: for protocol('redirect') add middlebox('firewall')
+"Add firewall and intrusion detection from gateway to backend for classroom, with latency less than 10ms and 100mbps of bandwidth, and allow HTTPS only, everyday from 09:00 to 18:00","define intent uniIntent: from endpoint('gateway') to endpoint('backend') for endpoint('classrooms') add middlebox('firewall'), middlebox('ids') allow protocol('https'), protocol('everyday') set bandwidth('max', '10', 'mbps') start hour('09:00') end hour('18:00')"
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Block traffic from dorms,define intent uniIntent: for endpoint('dorms') 
+"""Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+block Bob's traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+shutdown all student traffic,"define intent uniIntent: for group('students'), traffic('all')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+route traffic to labs through DPI middlebox,"define intent uniIntent: for endpoint('labs'), protocol('route') add middlebox('dpi')"
+limit torrent traffic for guests to 100 mpbs,"define intent uniIntent: for endpoint('guests'), traffic('torrent') set quota('download', '100', 'mpbs')"
+limit server bandwidth to 5 gbps from 4 to 7 pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps')"
+"Add firewall and intrusion detection from the gateway to the backend for client B with at least 100mbps ofbandwidth, and allow HTTPS only","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+set 10GB per week quota for the Dorms,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+Inspect the traffic to the Labs,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Please add a firewall,define intent uniIntent: for endpoint('network') add middlebox('firewall')
+"Add firewall and intrusion detection from gateway to backend for client B, with latency less than 10ms and 100mbps of bandwidth, and allow HTTPS only, everyday from 09:00 to 18:00","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https'), protocol('everyday') set bandwidth('max', '10', 'mbps') start hour('09:00') end hour('18:00')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+create a VLAN for the HR department and assign it to a specific set of switch ports.,define intent uniIntent: for endpoint('HR')  add middlebox('VLAN')
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+"""Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"""Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Run a virus check on all university machines,define intent uniIntent: for traffic('all')
+generate an IP address for my PC,define intent uniIntent: for endpoint('pc') add middlebox('ips')
+Increase bandwidth usage to 60 mbps for staff,define intent uniIntent: for group('staff') 
+limit bandwidth usage to 50mbps for staff,"define intent uniIntent: for group('staff') set bandwidth('max', '50', 'mbps')"
+set the minimum bandwidth for staff to 60mbps,define intent uniIntent: for group('staff') 
+inspect traffic for the dorm,"define intent uniIntent: for endpoint('dorm'), traffic('all') add middlebox('dpi')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+"Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"""Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"""Students should download a minimum of 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"""Increase bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"""Increase bandwidth usage by 50 mbps for staff.""","define intent uniIntent: for group('staff') set bandwidth('max', '50', 'mbps')"
+please assign ip 192.168.10.0 to students,define intent uniIntent: for group('students') add middlebox('ips')
+Generate an IP address for lab PC,define intent uniIntent: for endpoint('labs') add middlebox('ips')
+"For Senior Students increase their quota to 50GB, while for freshmen students set their quota to 10GB","define intent uniIntent: for group('students') set quota('download', '50', 'gb/hr'), quota('download', '10', 'gb/hr')"
+Add firewall and intrusion detection from the gateway to the backend for client B with atleast 100 mbps of bandwidth and allow https only,"define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+remove firewall and intrusion detection from the gateway to the backend for client B with atleast 100 mbps of bandwidth and allow https only,"define intent uniIntent: from endpoint('gateway') to endpoint('backend') remove middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+Add firewall and intrusion detection from the gateway to the backend for client B with max100 mbps of bandwidth and allow https only,"define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+request  a max latency of 500 ms for network traffic from sdwan site A to sdwan site B,define intent uniIntent: for endpoint('network') add middlebox('ms') 
+request a max latency of 500 ms for traffic from site 1 to site 2,define intent uniIntent: for endpoint('network') 
+guarantee a max 500 latency for traffic from site1 to site 2,define intent uniIntent: for traffic('all') 
+provision  minimum of  500 mbps for traffic from site1 to site 2,"define intent uniIntent: for endpoint('network') set bandwidth('min', '500', 'mbps')"
+"""Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+please deploy a firewall and IDS in the dorms of the female students,"define intent uniIntent: for endpoint('dorms'), group('students') add middlebox('firewall'), middlebox('ids')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+please drop traffic from 5pm to 4am,define intent uniIntent: for endpoint('network') start hour('17:00') end hour('04:00')
+hey lumi please forbid traffic from 5pm to 4am,define intent uniIntent: for endpoint('network') start hour('17:00') end hour('04:00')
+students cannot use network from 4am to 5pm,define intent uniIntent: for group('students') start hour('04:00') end hour('17:00')
+"Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+please block traffic for all students.,define intent uniIntent: for group('students') block traffic('all')
+please block traffic for all students from 5pm to 4am.,define intent uniIntent: for group('students') block traffic('all') start hour('17:00') end hour('04:00')
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"please lumi, forward all internet traffic to the DPI then to labs",define intent uniIntent: from endpoint('gateway') to endpoint('labs') add middlebox('dpi')
+stop traffic from dorms,define intent uniIntent: for endpoint('dorms') 
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+stop traffic coming from the Internet pass through a firewall,define intent uniIntent: for endpoint('gateway')  add middlebox('firewall')
+please block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+"please lumi, limit torrent bandwidth to 100 Mbps","define intent uniIntent: for endpoint('network') set bandwidth('max', '100', 'mbps')"
+Limit torrent bandwidth to 100mbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '100', 'mbps')"
+"please lumi, block students f2movies traffic from internet to labs",define intent uniIntent: from endpoint('gateway') to endpoint('labs') block service('F2movies')
+Block f2movies for students in labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+Set a 100 Mbps the bandwidth limit for Torrent traffic from Internet to Guests,"define intent uniIntent: for group('guests'), endpoint('gateway'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Set 5 GBps as bandwidth limit for the servers from 4pm to 7pm,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"hey Lumi, limit to 100 Mbps the traffic to Guest","define intent uniIntent: for group('guests'), traffic('all') set bandwidth('max', '100', 'mbps')"
+"Hey Lumi, block the F2movies traffic for all students in the labs","define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+"Hey Lumi, block facebook traffic",define intent uniIntent: for endpoint('network') block service('facebook')
+please make crack coming from the internet's best for a firewall,"define intent uniIntent: for endpoint('gateway') add middlebox('best'), middlebox('firewall')"
+set a 10 GB per week download quota for students in dorms,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+"for endpoint('dorms') set quota('download','10', 'gb/wk')","define intent uniIntent: for endpoint('network') set quota('download', '10', ''')"
+Set quota to 10 GB per week at guest,"define intent uniIntent: for traffic('guest') set quota('download', '10', 'gb/wk')"
+set quota to 10 GB per week for students,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+limit torrent traffic to guests to 100 mbps,"define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Between internet and servers limit traffic to 5Gbps start 16:00 finish 19:00,"define intent uniIntent: from endpoint('gateway') to endpoint('servers') set bandwidth('max', '5', 'gbps')"
+limit traffic to 5Gbps  Between internet and servers for 16:00 to 19:00,"define intent uniIntent: from endpoint('gateway') to endpoint('servers') set bandwidth('max', '5', 'gbps')"
+limit the bandwidth to 5Gb for rack servers from 4 pm until 7 pm,"define intent uniIntent: for protocol('servers') set quota('download', '5', 'gb') start hour('16:00') end hour('19:00')"
+Limit the download quota to 10Gb per week in the dorms.,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+please limit bandwidth to 5 Gigabits per second for the server racks everyday from 4 PM to 7 PM,"define intent uniIntent: for endpoint('servers'), protocol('everyday') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+Add DPI middlebox into all traffic from Internet to the Labs.,"define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi'), middlebox('into')"
+Set bandwidth to 100 Mbps to Internet traffic.,"define intent uniIntent: for endpoint('gateway'), traffic('all') set bandwidth('max', '100', 'mbps')"
+Block F2movies traffic from Internet to student Labs.,"define intent uniIntent: for group('students'), endpoint('gateway') block service('F2movies')"
+Block F2movies traffic from Internet to student Labs.,"define intent uniIntent: for group('students'), endpoint('gateway') block service('F2movies')"
+block all student traffic in the network,"define intent uniIntent: for group('students'), traffic('all'), endpoint('network') "
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Limit servers bandwidth to 5 gbps from 4pm to 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Lumi, for the guest network, limit the traffic of torrent protocol to 100 MBPs","define intent uniIntent: for group('guests'), traffic('torrent'), traffic('all')  set bandwidth('max', '100', 'mbps')"
+"Lumi, for the guest network, limit the traffic of torrent protocol to 100 mbps","define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+block all student traffic,define intent uniIntent: for group('students') block traffic('all')
+block all tcp traffic from the library,define intent uniIntent: for endpoint('network') block protocol('tcp')
+please limit the bandwith of guests to 100mbps,"define intent uniIntent: for group('guests') set bandwidth('max', '100', 'mbps')"
+please limit the torrent bandwith of guests to 100mbps,"define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+rate limit guests 100mbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '100', 'mbps')"
+set 10gb student quota in dorm,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/hr')"
+students can download 10gb in dowms,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/hr')"
+block traffic from thepiratebay.org,define intent uniIntent: for endpoint('network') 
+direct all traffic arriving at DMZ from gateway to servers,define intent uniIntent: from endpoint('gateway') to endpoint('servers') for endpoint('DMZ') 
+make all traffic going to the lab go through the deep packet inspection,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('going'), middlebox('dpi')"
+limit students in the dorms to 10GB/week data,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+Route all traffic destined to the lab through the DPI,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('destined'), middlebox('dpi')"
+for guest torrent traffic limit to 100 mbps,"define intent uniIntent: for endpoint('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+block service F2movies  traffic from Internet to Labs,define intent uniIntent: from endpoint('gateway') to endpoint('labs') block service('F2movies')
+"Lumi, drop packets from facebook",define intent uniIntent: for service('facebook')
+set a 10 gb per week usage quota for students in the dorms,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+set 10 gb/wk usage quota for students in the dorms,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+limit guest torrent traffic to 100 mpbs,"define intent uniIntent: for group('guests'), traffic('torrent') set quota('download', '100', 'mpbs')"
+limit guest bandwidth for torrenting to 100 mbps,"define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+limit server rack bandwidth to 5 gbps from 4pm to 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+Which ports are open for the dorm?,define intent uniIntent: for endpoint('dorms') add middlebox('open')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+"""Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+please block all internet traffic,define intent uniIntent: for endpoint('gateway') 
+block youtube,define intent uniIntent: for endpoint('network') block service('youtube')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+make traffic coming from the Internet pass through a firewall,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+Lina's Banda music to 50 Mbps for professor,"define intent uniIntent: for group('professors'), traffic('streaming')  set quota('download', '50', 's')"
+Students shall download no more than 1000000 megabytes per week,define intent uniIntent: for group('students')
+Inspect all internet traffic to the labs,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+"please lumi, limit bandwidth to 5 gbps from 4pm to 7pm from internet to servers","define intent uniIntent: from endpoint('gateway') to endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"hey Lumi, drive the network traffic from DMZ to DPI","define intent uniIntent: for endpoint('DMZ'), traffic('all') add middlebox('dpi')"
+"Hey Lumi, drive the students's traffic to DPI and then to Labs","define intent uniIntent: for group('students'), endpoint('labs') add middlebox('dpi')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+block F2movies traffic for students in the labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Lumi check with DPI all traffic,define intent uniIntent: for traffic('all') add middlebox('dpi')
+Limit to 100 Mbps torrent traffic in the gateway,"define intent uniIntent: for endpoint('gateway'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Set quota to 10 GB per week at dorms,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+set quota to 10 GB per week at servers,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+Make sure all traffic from the Internet to the labs is inspected by the DPI middlebox.,"define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('sure'), middlebox('dpi'), middlebox('.')"
+Block F2 Movies traffic from the Internet to the Labs,"define intent uniIntent: for endpoint('gateway'), endpoint('labs') block service('F2movies')"
+block F2movies traffic for students in the labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+Make sure all traffic from the Internet to the labs is inspected by the DPI middlebox.,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+Set 10 GB per weak quota from Internet to the Dorms.,"define intent uniIntent: from endpoint('gateway') to endpoint('dorms') set quota('download', '10', 'gb/hr')"
+set quota to 10 GB per week at labs,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+block all student traffic in the network,"define intent uniIntent: for group('students'), traffic('all'), endpoint('network') "
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+block all student traffic in the network,"define intent uniIntent: for group('students'), endpoint('network') block traffic('all')"
+Block F2movies traffic for students in labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+"Lumi's, add a firewall and block F2movies traffic",define intent uniIntent: for endpoint('network') add middlebox('firewall') block service('F2movies')
+Limit server rack access from 4pm to 7pm up to 5Gbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+Limit servers access from 4pm to 7pm up to 5Gbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Lumi, please reduce the traffic to the servers into DMZ to 5Gbps during all days from 4PM to 7PM ok?","define intent uniIntent: for endpoint('servers'), traffic('all'), protocol('days') add middlebox('DMZ') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+route all traffic from DMZ to DPI,"define intent uniIntent: for endpoint('DMZ'), traffic('all') add middlebox('dpi')"
+set download quota of 10 gb per week for dorms traffic,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+inspect all traffic from the internet to the labs with DPI,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+limit to 100 Mbps the bandwidth torrent traffic can consume,"define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+"Lumi, inspect traffic to labs using DPI",define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+"Lumi, limit the bandwidth to 5Gbps from 4PM to 7PM","define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+Redirect all traffic from gateway to DMZ,define intent uniIntent: from endpoint('gateway') to endpoint('DMZ') for traffic('all')
+"Hey Lumi, please block all traffic from F2movies to labs","define intent uniIntent: for service('F2movies'), endpoint('labs') block traffic('all')"
+"Hey Lumi, please block all traffic from f2movies to labs for students","define intent uniIntent: for service('F2movies'), endpoint('labs'), group('students') block traffic('all')"
+send user traffic to labs through dpi,define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+rate limit guests 100mbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '100', 'mbps')"
+student quota dorm 10gb month,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/mth')"
+"Hey Lumi, please block incoming traffic for all professors",define intent uniIntent: for group('professors') block traffic('all')
+set bandwitch to 5Gbps between 4PM and 7PM,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+allow all traffic between servers and dpi,define intent uniIntent: for endpoint('servers')  add middlebox('dpi')
+limit torrent traffic between LAN and Guests to 100 Mbps,"define intent uniIntent: for endpoint('guests'), endpoint('LAN'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+route all traffic from the internet through the DPI middlebox,"define intent uniIntent: for endpoint('gateway'), traffic('all') add middlebox('dpi')"
+route all traffic flowing from the internet to the labs through the DPI middlebox,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+limit students to 10GB/week download,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+limit the server racks bandwidth to 5 Gbps from 4pm to 7pm,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+route all traffic for the labs through dpi,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+for every student limit downloads to 10 GB per week,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+for every student in dorms limit downloads to 10 GB per week,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+please redirect traffic from the gateway to the dpi then to the labs,"define intent uniIntent: for endpoint('labs'), endpoint('gateway'), traffic('all') add middlebox('dpi')"
+The exchange of data between the company’s headquaters and its remote production sites is to be done between 18:00 and 22:00 hours in encrypted mode,define intent uniIntent: for endpoint('network') allow service('remote') start hour('18:00') end hour('22:00')
+"Add firewall and intrusion detection from the gateway to the backend for client B with at least 100mbps ofbandwidth, and allow HTTPS only","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+"Add firewall and intrusion detection from the gateway to the backend for client B with at least 100mbps ofbandwidth, and allow HTTP and HTTPS only","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('http'), protocol('https') set bandwidth('max', '100', 'mbps')"
+Please block the traffic from Tokyo,define intent uniIntent: for endpoint('network') 
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+inspect all traffic to labs,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+set a 5 Gbps bandwidth limit for the server racks from 4PM to 7PM.,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Add firewall and intrusion detection from the gateway to the backend for client B with at least 100mbps of bandwidth, and allow HTTPS only","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+"Add firewall and intrusion detection from gateway to backend for client B, with latency less than 10ms and 100mbps of bandwidth, and allow HTTPS only, everyday from 09:00 to 18:00","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https'), protocol('everyday') set bandwidth('max', '10', 'mbps') start hour('09:00') end hour('18:00')"
+block youtube,define intent uniIntent: for endpoint('network') block service('youtube')
+stop traffic from dorms,define intent uniIntent: for endpoint('dorms') 
+"please lumi, define dorms quota to 100 gb per week","define intent uniIntent: for endpoint('network') set quota('download', '100', 'gb/wk')"
+"Hey Lumi, please remove the firewall, the ips and the ids from the students hall.","define intent uniIntent: for group('hall') remove middlebox('firewall'), middlebox('ips'), middlebox('dpi')"
+Send to DPI all traffic from Internet to Labs,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+"hey lumi, please add a DPI to ensure students from the labs are not accessing suspicious applications","define intent uniIntent: for endpoint('labs'), traffic('students') add middlebox('dpi')"
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Set quota to 10 GB per week dorms,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+set quota to 10 GB per week at guests,"define intent uniIntent: for traffic('guests') set quota('download', '10', 'gb/wk')"
+Between internet and dorms set quota to 10 GB per week,"define intent uniIntent: from endpoint('gateway') to endpoint('dorms') set quota('download', '10', 'gb/wk')"
+Limit traffic from torrent to the guests to 100 Mbps,"define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+please limit bandwidth to 5 Gigabits per second for the server racks everyday from 4 PM to 7 PM,"define intent uniIntent: for endpoint('servers'), protocol('everyday') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+block all student traffic,"define intent uniIntent: for group('students'), traffic('all') "
+allow all student traffic,"define intent uniIntent: for group('students'), traffic('all') "
+Hi Lumi! Please route all traffic destined to Labs through DPI.,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+Route all traffic destined to Labs through the DPI.,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+Block F2movies traffic to students in Labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+Limit dorms to 10 gb per week downloads,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+limit torrent traffic from gateway to 100Mbps,"define intent uniIntent: for endpoint('gateway'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+limit bandwidth for server racks to 5Gbps from 4pm to 7pm,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Lumi, limit students to 10GB maximum download per week in dorms","define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/hr')"
+"Lumi, limit students to 10GB maximum week download in dorms","define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/hr')"
+"Lumi, limit students to 10gb/wk maximum download in dorms","define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+to limit just the torrent traffic,define intent uniIntent: for endpoint('network') allow traffic('torrent')
+"Lumi, I want you to limit the dorms network to just 10 GB per week","define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+"Lumi, block all traffic to F2Movies for studends on the Labs",define intent uniIntent: for endpoint('labs') block service('F2movies') traffic('all')
+"Hey Lumi, all traffic from gateway to labs should be redirected to DPI",define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+Please limit the download quota for dorms to 10GB per week,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+add dpi on labs,define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+Block all traffic to thepiratebay.org,"define intent uniIntent: for endpoint('network') block traffic('all'), traffic('org')"
+limit torrent traffic between LAN and Guests to 100 Mbps,"define intent uniIntent: for endpoint('guests'), endpoint('LAN'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Block all traffic going to students,define intent uniIntent: for group('students') block traffic('all')
+block all traffic for students,define intent uniIntent: for group('students') block traffic('all')
+Block all traffic to and from china,define intent uniIntent: for endpoint('network') block traffic('all')
+"Hi Lumi, set dorms traffic 10 GB per week","define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+limit Dorms download 10 gb per week,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+"Hi Lumi, block F2movies from Internet to Labs",define intent uniIntent: from endpoint('gateway') to endpoint('labs') block service('F2movies')
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+set a 5 gbps limit for the servers from 4pm to 7pm,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Please make traffic coming from the Internet pass through a firewall after going through an IDS,"define intent uniIntent: for endpoint('gateway') add middlebox('firewall'), middlebox('ids')"
+block pirate traffic in labs,define intent uniIntent: for endpoint('labs') block protocol('pirate')
+limit server rack bandwidth to 5 gbps from 4pm to 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Add firewall and intrusion detection from the gateway to the backend for client B with at least 100mbps ofbandwidth, and allow HTTPS only”","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https'), protocol('""') set bandwidth('max', '100', 'mbps')"
+limit the torrent bandwidth of the guests to 100Mbps,"define intent uniIntent: for endpoint('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+CounterStrike server is blocked by the University firewall,define intent uniIntent: for endpoint('university')  add middlebox('firewall')
+"Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+"Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"""Currently, the University of Illinois does not have any rate limits",define intent uniIntent: for endpoint('University of Illinois')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Set 5gbps limit for servers during 4pm to 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps')"
+Limit rack servers to 5gbps during 5pm to 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps')"
+Block F2movies traffic for students in Labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+"hey Lumi, limit to 100 Mbps the torrent traffic to Guest","define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Inspect traffic from Internet to the lab pass throught a DPI,define intent uniIntent: from endpoint('gateway') to endpoint('labs')  add middlebox('dpi')
+Limit to 100Mbps the torrent traffic,"define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+"Redirect all traffic from labs, going trhogh DPI","define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+Limit traffic to 10 GB per week at Dorms,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+block host all,define intent uniIntent: for endpoint('network') block traffic('all')
+Set quota to 10 GB per week between gateway and lan,"define intent uniIntent: from endpoint('gateway') to endpoint('LAN') set quota('download', '10', 'gb/wk')"
+At gateway block traffic from F2movies,define intent uniIntent: for endpoint('network') block service('F2movies')
+limit download fee of 10 Gb per user us bedrooms,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb')"
+facebook traffic,define intent uniIntent: for endpoint('network') allow service('facebook')
+inspect all traffic from labs,"define intent uniIntent: for endpoint('labs'), traffic('all') add middlebox('dpi')"
+limit students download to 1gb,"define intent uniIntent: for endpoint('network') set quota('download', '1', 'gb')"
+limit servers bandwidth to 5gbps between 4pm and 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+make traffic going to the labs pass through dpi,define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+set a 5Gbps bandwidth limit for the server racks from 4PM to 7PM,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"hey lumi, please add a DPI to ensure students from the labs are not accessing suspicious applications","define intent uniIntent: for endpoint('labs'), traffic('students') add middlebox('dpi')"
+please limit bandwidth to 5 Gigabits per second for the server racks everyday from 4 PM  to 7PM,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+block all traffic,define intent uniIntent: for traffic('all') 
+block all traffic in the network,define intent uniIntent: for endpoint('network') block traffic('all')
+block all student traffic,"define intent uniIntent: for group('students'), traffic('all') "
+Please block traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+Limit the torrent traffic to 100 Mbps.,"define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Send internet traffic to labs through dpi,define intent uniIntent: from endpoint('gateway') to endpoint('labs') add middlebox('dpi')
+Limit servers access from 4pm to 7pm up to 5Gbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+limit all guests traffic to 100 Mbps,"define intent uniIntent: for group('guests'), traffic('all') set bandwidth('max', '100', 'mbps')"
+allow only https from professors,define intent uniIntent: for group('professors') allow protocol('https')
+udp traffic from students is blocked,define intent uniIntent: for group('students') allow protocol('udp')
+block all f2movies traffic on labs,"define intent uniIntent: for service('F2movies'), endpoint('labs') block traffic('all')"
+block all f2movies traffic on labs from students,"define intent uniIntent: for service('F2movies'), endpoint('labs'), group('students') block traffic('all')"
+"Hey Lumi, please limit the bandwith from gateway to servers to 5Gbps from 4:00PM to 7:00PM","define intent uniIntent: from endpoint('gateway') to endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+users in the labs should not be able to access suspicious applications,"define intent uniIntent: for group('users'), endpoint('labs')"
+rate limit servers 5gbps from 4pm to 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+block traffic for all professors,define intent uniIntent: for group('professors') block traffic('all')
+allow all traffic between dpi and labs,define intent uniIntent: for endpoint('labs')  add middlebox('dpi')
+limit bandwidth for professors,define intent uniIntent: for group('professors')
+"Lumi, let's configure the endpoints for DPI",define intent uniIntent: for endpoint('network')  add middlebox('dpi')
+limit students to 10 GB of download per week,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/hr')"
+limit torrent traffic to 100 Mbps,"define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+"Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+limit torrent traffic to 100 mbps,"define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+limit torrent traffic to 100 mbps,"define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+students can download up to 10GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+limit guest traffic for torrenting to 100 mpbs,"define intent uniIntent: for group('guests'), traffic('torrent'), traffic('all') set quota('download', '100', 'mpbs')"
+limit downloads in dorms to 10gb per week,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+block f2movie for students in the labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+set 5Gbps server racks from 4pm to 7pm,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Add firewall and intrusion detection from gateway to backend for client students, with latency less than 10ms and 100mbps of bandwidth, and allow HTTPS only, everyday from 09:00 to 18:00","define intent uniIntent: from endpoint('gateway') to endpoint('backend') for group('students') add middlebox('firewall'), middlebox('ids') allow protocol('https'), protocol('everyday') set bandwidth('max', '10', 'mbps') start hour('09:00') end hour('18:00')"
+"Add firewall and intrusion detection from gateway to backend for teachers, with latency less than 10ms and 100mbps of bandwidth, and allow HTTPS only, everyday from 09:00 to 18:00","define intent uniIntent: from endpoint('gateway') to endpoint('backend') for group('professors') add middlebox('firewall'), middlebox('ids') allow protocol('https'), protocol('everyday') set bandwidth('max', '10', 'mbps') start hour('09:00') end hour('18:00')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+CounterStrike server is blocked by the University firewall,define intent uniIntent: for endpoint('university') block service('CounterStrike server') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Please add a firewall,define intent uniIntent: for endpoint('network') add middlebox('firewall')
+Please add a firewall,define intent uniIntent: for endpoint('network') add middlebox('firewall')
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+IMAP and secure IMAP are allowed by the University firewall,"define intent uniIntent: for endpoint('university') allow protocol('imap'), protocol('secure imap') add middlebox('firewall')"
+block CS server for all students,define intent uniIntent: for group('students') block service('CounterStrike server')
+"""Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+please limit the torrent bandwith of guests to 100mbps,"define intent uniIntent: for endpoint('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Route traffic from s1 to a3 from 8am to 9pm,define intent uniIntent: for endpoint('network') start hour('08:00') end hour('21:00')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+please block traffic for all students and limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('students'), group('professors') block traffic('all') set bandwidth('max', '50', 'mbps')"
+student traffic 10GB 5GB per nothing,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/hr'), quota('download', '5', 'gb/hr')"
+student traffic 10GB 5GB per dday,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/hr'), quota('download', '5', 'gb/hr')"
+please block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+please block traffic for all students.,define intent uniIntent: for group('students') block traffic('all')
+please block traffic for all students.,define intent uniIntent: for group('students') block traffic('all')
+Block F2movies to the labs for students,"define intent uniIntent: for endpoint('labs'), group('students') block service('F2movies')"
+"Hey Lumi, please ban traffic for all students.","define intent uniIntent: for group('students'), traffic('all')"
+block employee from social media,define intent uniIntent: for endpoint('network') block traffic('social-media') add middlebox('from')
+Block network access for Alex,define intent uniIntent: for endpoint('network') block service('access')
+Block network access for Alex,define intent uniIntent: for endpoint('network') block service('access')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+block the traffic from the web,define intent uniIntent: for endpoint('network') 
+block website F2movies for labs,define intent uniIntent: for endpoint('labs') block service('F2movies')
+for students block traffic from website f2movies coming from labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+Inspect the traffic for the EmNets301,define intent uniIntent: for endpoint('network') add middlebox('dpi')
+limit servers bandwith to 5mpbs from 4PM to 7PM,"define intent uniIntent: for endpoint('network') set quota('download', '5', 'mpbs') start hour('16:00') end hour('19:00')"
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Limit bandwidth usage to 50 mbps for professors to watch youtube.,"define intent uniIntent: for group('professors'), service('youtube') set bandwidth('max', '50', 'mbps')"
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"Hey Lumi, please remove the firewall, the ips and from hall.","define intent uniIntent: for endpoint('hall') remove middlebox('firewall'), middlebox('ips')"
+limit bandwidth usage to 500mbps for students,"define intent uniIntent: for group('students') set bandwidth('max', '500', 'mbps')"
+Inspect traffic for the dorm,"define intent uniIntent: for endpoint('dorms'), traffic('all') add middlebox('dpi')"
+Students can download up to per week of data,define intent uniIntent: for group('students')
+"hey lumi, unblock youtube in the laboratory",define intent uniIntent: for endpoint('labs') allow service('youtube')
+Inspect traffic for the dorm,"define intent uniIntent: for endpoint('dorms'), traffic('all') add middlebox('dpi')"
+limit bandwidth usage to 50 mbps while make the maximum link ultilization lower than 0.8,"define intent uniIntent: for endpoint('network') set bandwidth('max', '50', 'mbps')"
+limit bandwidth usage to 50 mbps while maintaining the maximum link ultilization lower than 0.8,"define intent uniIntent: for endpoint('network') set bandwidth('max', '50', 'mbps')"
+limit the guests' bandwidth to 100Mbps,"define intent uniIntent: for endpoint('guests') set bandwidth('max', '100', 'mbps')"
+"""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"for group('students'), endpoint('labs'), traffic('all')      set bandwidth('max', '5', 'mbps')","define intent uniIntent: for group('students'), traffic('all') set quota('download', '5', ''')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+block all traffic from labs to dorms,"define intent uniIntent: for endpoint('labs'), endpoint('dorms') block traffic('all')"
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Hey, Lumi!   Inspect traffic for professors in the dorms","define intent uniIntent: for group('professors'), endpoint('dorms'), traffic('all') add middlebox('dpi')"
+Battlenet is allowed by the University firewall,"define intent uniIntent: for endpoint('university'), service('Battlenet') add middlebox('firewall')"
+please do not let any music streaming in the network,define intent uniIntent: for endpoint('network') block traffic('streaming')
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Block and enable traffic of host.,define intent uniIntent: for endpoint('hosts') block traffic('all')
+Route traffic from s1 switch to a3 switch from 8am to 9pm,define intent uniIntent: for endpoint('network') start hour('08:00') end hour('21:00')
+block traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+"Please, limit the internet channel to 40 gbps",define intent uniIntent: for endpoint('network')
+block traffic for the dorm,define intent uniIntent: for endpoint('dorms') 
+block traffic for the dorm,define intent uniIntent: for endpoint('dorms') 
+"Hey Lumi, please block traffic for IP 168.0.0.1",define intent uniIntent: for endpoint('network') block traffic('all')
+update the service level for the teachers,define intent uniIntent: for group('professors')
+please block traffic for all students.,define intent uniIntent: for group('students') block traffic('all')
+Block traffic from YouTube,define intent uniIntent: for service('youtube') 
+Set quota to 10GB per week for dorms,"define intent uniIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+Block F2movies for the students to the labs,define intent uniIntent: for endpoint('labs') block service('F2movies')
+remove the firewall between the dorms and the Internet,define intent uniIntent: from endpoint('dorms') to endpoint('gateway') remove middlebox('firewall')
+1GB student firewall,"define intent uniIntent: for group('students') add middlebox('firewall') set quota('download', '1', 'gb/hr')"
+"Hey Lumi, please prohibit traffic for all students.","define intent uniIntent: for group('students'), traffic('all')"
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+download up to 10 GB per week for nibbas,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'gb/wk')"
+inspect the labs traffic using DPI,define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+limit the rate to 100mbps for guests for torrent  website,"define intent uniIntent: for endpoint('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+limit student in dorms downloads to 10 gb per week,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+block traffic from website f2movies coming from labs,define intent uniIntent: for endpoint('labs') block service('F2movies')
+block Youtube,define intent uniIntent: for endpoint('network') block service('youtube')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+FTP and SFTP servers are allowed by the University firewall,"define intent uniIntent: for endpoint('university'), protocol('ftp'), protocol('sftp') add middlebox('firewall')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+block all traffic coming from hostel,"define intent uniIntent: for endpoint('network') block traffic('all'), traffic('hostel')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please remove the firewall, the ips and the ids from the students hall","define intent uniIntent: for group('students') remove middlebox('firewall'), middlebox('ips'), middlebox('ids')"
+"define intent buildIntent:      for endpoint('hall')      add middlebox('firewall'), middlebox('ips')",define intent uniIntent: for endpoint('network')  add middlebox('firewall')
+add ips for dorms,define intent uniIntent: for endpoint('dorms') add middlebox('ips')
+remove firewall from network,define intent uniIntent: for endpoint('network') remove middlebox('firewall')
+block traffic tagged from PCI destined to non-PCI tagged networks,define intent uniIntent: for endpoint('network') block protocol('PCI')
+block traffic labeled PCI to resources labeled non-PCI,"define intent uniIntent: for endpoint('network') block traffic('all'), traffic('PCI')"
+"Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+Students can download up to 10 GB,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/hr')"
+inspect traffic for the dorm,"define intent uniIntent: for endpoint('dorms'), traffic('all') add middlebox('dpi')"
+block traffic for all students,define intent uniIntent: for group('students') 
+How is the colour of the Skype?,define intent uniIntent: for endpoint('network') allow service('skype')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+Mimize the maximum link ultilization in the network under the condition that professors' bandwidth is limited to 50Gbps,"define intent uniIntent: for endpoint('network'), group('professors'), traffic('ultilization') add middlebox('condition') set bandwidth('max', '50', 'gbps')"
+imit to 100 Mbps the bandwidth torrent traffic can consume,"define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+set a 5 Gbps bandwidth limit for the server racks from 4PM to 7PM.,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+minimize the maximum link ultilization in the network,define intent uniIntent: for endpoint('network')
+Teacher inspects all traffic of students in the lab,"define intent uniIntent: for group('professors'), group('students'), endpoint('labs'), traffic('all') add middlebox('dpi')"
+set a 5 Gbps bandwidth limit for the server racks from 4PM to 7PM,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+Limit the bandwidth to 5gbps from google,"define intent uniIntent: for endpoint('network') set bandwidth('max', '5', 'gbps')"
+"For all students in the lab, limit all traffic from Youtube to 5Mbps.","define intent uniIntent: for group('students'), endpoint('labs'), service('youtube'), traffic('all') set bandwidth('max', '5', 'mbps')"
+Please limit bandwidth for everyone and make traffic pass through a firewall,define intent uniIntent: for endpoint('network') add middlebox('firewall')
+"Hey Lumi, please block traffic for all students and  Students can download up to 10 GB per week of data","define intent uniIntent: for group('students') block traffic('all') set quota('download', '10', 'gb/wk')"
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+please remove DPI from DMZ starting at 6am until 9pm,define intent uniIntent: for endpoint('DMZ') remove middlebox('dpi') start hour('06:00') end hour('21:00')
+"Hey, Lumi!   Inspect traffic for students in the dorms","define intent uniIntent: for group('students'), endpoint('dorms'), traffic('all') add middlebox('dpi')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+H323 video conferencing is allowed by the University firewall,"define intent uniIntent: for endpoint('university'), service('H323 video conferencing') add middlebox('firewall')"
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+make tcp traffic pass through traffic shaper from 5pm to 8pm,define intent uniIntent: for protocol('tcp') add middlebox('traffic shaping') start hour('17:00') end hour('20:00')
+Students 10 GB a day download quotas are on 10 AM to Midnight,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/d') start hour('10:00') end hour('24:00')"
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Allow traffic for user X.,define intent uniIntent: for group('users') 
+block traffic from youtube,define intent uniIntent: for service('youtube') 
+block traffic from,define intent uniIntent: for endpoint('network') 
+Students can download up to per week of data.,define intent uniIntent: for group('students')
+block traffic for all students,define intent uniIntent: for group('students') 
+"""Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+update the qos for dorms,define intent uniIntent: for endpoint('dorms') add middlebox('qos')
+add the firewall for students,define intent uniIntent: for group('students') add middlebox('firewall')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+please block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+please block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+"Hye Lmui, plaese blcok traffc for all studnets.",define intent uniIntent: for traffic('all')
+please block traffic for all students.,define intent uniIntent: for group('students') block traffic('all')
+please block traffic for all students dorm,define intent uniIntent: for endpoint('dorms') block traffic('all')
+Let students access Facebook,define intent uniIntent: for group('students') allow service('facebook')
+block employee from accessing social media,define intent uniIntent: for endpoint('network') block traffic('social-media')
+block traffic for all students,define intent uniIntent: for group('students') 
+block traffic from youtube,define intent uniIntent: for service('youtube') 
+Find if there was there an attach from China,define intent uniIntent: for endpoint('China') add middlebox('attach')
+block all traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+inspect traffic,define intent uniIntent: for endpoint('network') add middlebox('dpi')
+Students can download up to GB per week of data,define intent uniIntent: for group('students')
+Please add a firewall,define intent uniIntent: for endpoint('network') add middlebox('firewall')
+block netflix,define intent uniIntent: for endpoint('network') block service('netflix')
+block traffic for dorm,define intent uniIntent: for endpoint('dorms') 
+Please block all incoming traffic to youtube.com,define intent uniIntent: for endpoint('network') block service('youtube') traffic('com')
+block Youtube in Emnets,define intent uniIntent: for endpoint('network') block service('youtube')
+limit guests traffic to torrent bandwidth to 100mbps,"define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+limit servers bandwidth to 5gb from 4pm to 7pm,"define intent uniIntent: for endpoint('network') set quota('download', '5', 'gb/hr') start hour('16:00') end hour('19:00')"
+inspect suspicious activity in labs,define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+set quota 20 gb for A,"define intent uniIntent: for endpoint('network') set quota('download', '20', 'gb/hr')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+block traffic of students.,define intent uniIntent: for group('students') block traffic('all')
+"""Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+add firewall,define intent uniIntent: for endpoint('network') add middlebox('firewall')
+"Hey Lumi, please block traffic""",define intent uniIntent: for endpoint('network') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"Hey Lumi, block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+limit the internet in dỏm,define intent uniIntent: for endpoint('network') add middlebox('internet')
+limit the internet,define intent uniIntent: for endpoint('network') allow traffic('the')
+limit the internet for me,define intent uniIntent: for endpoint('network') add middlebox('internet')
+limit the internet,define intent uniIntent: for endpoint('network') allow traffic('the')
+please load balance the traffic in the network,"define intent uniIntent: for endpoint('network'), traffic('all') add middlebox('load balancer')"
+block F2movies traffic for students in the labs.,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+all traffic from the Internet to the labs is carefully inspected by the Deep Packet Inspection (DPI) middlebox.,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+Bob inspects all traffic of students in the lab,"define intent uniIntent: for group('students'), endpoint('labs'), traffic('all') add middlebox('dpi')"
+build a traffic flow test for firewall,define intent uniIntent: for endpoint(''building A'') add middlebox('firewall')
+"""Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+Limit bandwidth usage to 50 mbps for students,"define intent uniIntent: for group('students') set bandwidth('max', '50', 'mbps')"
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+delete all rules,define intent uniIntent: for endpoint('network') 
+limit guest's bandwidth to 100 Mbps,"define intent uniIntent: for group('guests') set bandwidth('max', '100', 'mbps')"
+block traffic between host1 and google.com,define intent uniIntent: for endpoint('network') block service('google') traffic('all') protocol('com')
+"""Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+block traffic from youtube,define intent uniIntent: for service('youtube') 
+"hi, please block traffic from the drom",define intent uniIntent: for endpoint('network') 
+block traffic from the dorm,define intent uniIntent: for endpoint('dorms') block traffic('all')
+block traffic for all students,define intent uniIntent: for group('students') 
+block traffic for all students,define intent uniIntent: for group('students') 
+block traffic for all students,define intent uniIntent: for group('students') 
+students traffic firewall 10GB 50GB,"define intent uniIntent: for group('students'), traffic('all') add middlebox('firewall') set quota('download', '10', 'gb/hr'), quota('download', '50', 'gb/hr')"
+student traffic 10GB 5GB per day,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/hr'), quota('download', '5', 'GB per day')"
+please block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+Inspect traffic from Internet to the labs,"define intent uniIntent: for endpoint('gateway'), endpoint('labs'), traffic('all') add middlebox('dpi')"
+please block traffic for all students.,define intent uniIntent: for group('students') block traffic('all')
+block traffic for all students.,define intent uniIntent: for group('students') block traffic('all')
+Dorms traffic to internet should not pass through a firewall,define intent uniIntent: from endpoint('dorms') to endpoint('gateway') add middlebox('firewall')
+"Hey Lumi,  traffic for all students is banned.",define intent uniIntent: for group('students') 
+block employee from social media,define intent uniIntent: for endpoint('network') block traffic('social-media') add middlebox('from')
+block employee traffic from accessing social media,define intent uniIntent: for endpoint('network') block service('employee') traffic('social-media')
+Please block traffic for all students.,define intent uniIntent: for group('students') block traffic('all')
+show all installed intents,define intent uniIntent: for endpoint('network')
+"Hey Lumi, block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+make traffic coming from internet pass through firewall,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+download up to 10 GB per week for all students,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+block the traffic from the,define intent uniIntent: for endpoint('network') 
+block traffic from the web,define intent uniIntent: for endpoint('network') 
+for guests limit torrent protocol speed to 100mbps,"define intent uniIntent: for endpoint('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+limit guests bandwidth to 100mbps,"define intent uniIntent: for group('guests') set bandwidth('max', '100', 'mbps')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+block all traffic from hostel,define intent uniIntent: for endpoint('network') block traffic('all') protocol('hostel')
+"Hey Lumi, please remove the firewall, the ips and the ids from the students hall.","define intent uniIntent: for group('students') remove middlebox('firewall'), middlebox('ips'), middlebox('ids')"
+disallow traffic from PCI to non-PCI networks,define intent uniIntent: for traffic('all')
+block traffic for students,define intent uniIntent: for group('students') 
+can you block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+limit the internet in dorm,define intent uniIntent: for endpoint('dorms') add middlebox('internet')
+limit the internet in dorm,define intent uniIntent: for endpoint('dorm') add middlebox('internet')
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Mimize the maximum link ultilization in the network,"define intent uniIntent: for endpoint('network'), traffic('ultilization')"
+make the maximum link ultilization in the network lower than 0.8 under the condition that professors' bandwidth is limited to 50Gbps,"define intent uniIntent: for endpoint('network'), group('professors'), traffic('ultilization') add middlebox('condition') set bandwidth('max', '50', 'gbps')"
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+block all traffic from abc for all students,define intent uniIntent: for group('students') block traffic('all')
+"For all students in the lab, limit all traffic from Youtube to 5Mbps.","define intent uniIntent: for group('students'), endpoint('labs'), service('youtube'), traffic('all') set bandwidth('max', '5', 'mbps')"
+hey lumi block traffic for all student,define intent uniIntent: for group('students') block traffic('all')
+"lumi, adda DPI network function between the Internet and the labs",define intent uniIntent: from endpoint('gateway') to endpoint('labs') add middlebox('dpi')
+"""Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Please make traffic coming from the Internet pass through a firewall,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+make sure all traffic to server racks is throttled to 1 gbps from 4pm to 9pm,"define intent uniIntent: for endpoint('servers'), traffic('all') set bandwidth('max', '1', 'gbps') start hour('16:00') end hour('21:00')"
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+University Housing monitors only the amount of traffic of each user,define intent uniIntent: for endpoint('network') add middlebox('traffic monitor')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+please remove DPI from DMZ starting at 6am until 9pm,define intent uniIntent: for endpoint('DMZ') remove middlebox('dpi') start hour('06:00') end hour('21:00')
+block traffic from GPT3,define intent uniIntent: for endpoint('network') 
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"Please, limit bandwidth of the main channel to 10mbps","define intent uniIntent: for endpoint('network') set bandwidth('max', '10', 'mbps')"
+Limit bandwidth usage,define intent uniIntent: for endpoint('network')
+"hey lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+please block traffic for all students.,define intent uniIntent: for group('students') block traffic('all')
+student can't access the firewall,define intent uniIntent: for group('students') add middlebox('firewall')
+student traffic 10GB 5GB everyday,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/hr'), quota('download', '5', 'gb/hr')"
+block students at 3pm,define intent uniIntent: for group('students') 
+please block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+Set 5Gbps limit for server racks from 4PM to 7PM,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+block traffic for all students,define intent uniIntent: for group('students') 
+please block traffic for all students student,define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+show me all intents,define intent uniIntent: for endpoint('network') 
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+limit the rate to 100mbps for guests for torrect website,"define intent uniIntent: for endpoint('guests') set bandwidth('max', '100', 'mbps')"
+for students block student traffic from website f2movies coming from labs,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+"Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+from 4 pm to 7 pm limit servers traffic to 5gbps,"define intent uniIntent: for traffic('all') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+check traffic from labs to all students,"define intent uniIntent: for endpoint('labs'), group('students') allow service('check')"
+add firewall to the dorm,define intent uniIntent: for endpoint('dorms') add middlebox('firewall')
+block F2movies traffic for students in the labs.,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+hey lumi i need to set spi for students,define intent uniIntent: for group('students')  add middlebox('spi')
+show me the network configurations,define intent uniIntent: for endpoint('network')
+"""Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Block youtube from building A,define intent uniIntent: for endpoint('network') block service('youtube')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please remove the firewall, the ips and from hall.","define intent uniIntent: for endpoint('hall') remove middlebox('firewall'), middlebox('ips')"
+add firewall to network,define intent uniIntent: for endpoint('network') add middlebox('firewall')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+Please make traffic coming from the Internet pass through a firewall,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Hey, limit the internet",define intent uniIntent: for endpoint('network') allow traffic('the')
+limit the internet,define intent uniIntent: for endpoint('network') allow traffic('the')
+imit bandwidth usage to 50 mbps for professors and load balance the network gain.,"define intent uniIntent: for group('professors'), endpoint('network') add middlebox('load balancer') set bandwidth('max', '50', 'mbps')"
+block F2movies traffic for students in the labs.,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+"For all students in the lab, limit all traffic from Google to 5Mbps.","define intent uniIntent: for group('students'), endpoint('labs'), traffic('all') set bandwidth('max', '5', 'mbps')"
+block F2movies traffic for students in the labs.,"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+traffic from datacenterA to datacenterB is loadbalance,define intent uniIntent: for endpoint('network')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+show the network,define intent uniIntent: for endpoint('network')
+"Add firewall and intrusion detection from gateway to backend for client B, with latency less than 10ms and 100mbps of bandwidth,and allow HTTPS only, everyday from 09:00 to 18:00","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https'), protocol('everyday') set bandwidth('max', '10', 'mbps') start hour('09:00') end hour('18:00')"
+"''please lumi, forward all internet traffic to the DPI then to labs''",define intent uniIntent: from endpoint('gateway') to endpoint('labs') add middlebox('dpi')
+limit bandwidth usage to 50mbps,"define intent uniIntent: for endpoint('network') set bandwidth('max', '50', 'mbps')"
+"""Hey Lumi, please block traffic for all students.""      ""Please make traffic coming from the Internet pass through a firewall.""      ""Limit bandwidth usage to 50 mbps for professors.""      ""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students'), group('professors'), endpoint('gateway') block traffic('all') add middlebox('firewall') set bandwidth('max', '50', 'mbps')"
+please block all traffic to the students union building,define intent uniIntent: for group('students') block traffic('all')
+"Add firewall and intrusion detection from gateway to backend for client B, with latency less than 10ms and 100mbps of bandwidth,and allow HTTPS only, everyday between 09:00 and 18:00","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https'), protocol('everyday') set bandwidth('max', '10', 'mbps') start hour('09:00') end hour('18:00')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+"""Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"Add firewall and intrusion detection from gateway to backend for classroom, with latency less than 10ms and 100mbps of bandwidth, and allow HTTPS only, everyday from 09:00 to 18:00","define intent uniIntent: from endpoint('gateway') to endpoint('backend') for endpoint('classrooms') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '10', 'mbps') start hour('09:00') end hour('18:00')"
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall at 24pm,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Currently, the University of Illinois does not have any rate limits",define intent uniIntent: for endpoint('University of Illinois')
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+bandwith of guests should be greater than 100mbps,"define intent uniIntent: for endpoint('guests') set bandwidth('max', '100', 'mbps')"
+block traffic from youtube,define intent uniIntent: for service('youtube') 
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+please block traffic from youtube,define intent uniIntent: for service('youtube') block traffic('all')
+"hi, please block traffic from the dorm",define intent uniIntent: for endpoint('dorms') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+block traffic for all students,define intent uniIntent: for group('students') 
+student firewall 50mpbs,"define intent uniIntent: for group('students') add middlebox('firewall') set quota('download', '50', 'mpbs')"
+block traffic for all students,define intent uniIntent: for group('students') 
+Rate limit traffic from internet to labs to 100Mbps,"define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') set bandwidth('max', '100', 'mbps')"
+prohibit traffic for all students,define intent uniIntent: for group('students')
+please prohibit traffic for all students,"define intent uniIntent: for group('students'), traffic('all')"
+"ey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+block traffic from accessing social media,define intent uniIntent: for endpoint('network') block traffic('social-media')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+block traffic for professors,define intent uniIntent: for group('professors') 
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"Add firewall and intrusion detection from the gateway to the backend for client B with at least 100mbps of bandwidth, and allow HTTPS only","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+Block network access for Alex,define intent uniIntent: for endpoint('network') block service('access')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+block student traffic from website f2movies coming from labs,"define intent uniIntent: for endpoint('labs') block service('student'), service('F2movies')"
+what is student,define intent uniIntent: for group('students')
+from 4 pm to 7 pm limit servers traffic to 5gbps,"define intent uniIntent: for traffic('all') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+limit bw for dorms to 10gb per week,"define intent uniIntent: for endpoint('dorms'), traffic('bw') set quota('download', '10', 'gb/wk')"
+torrent traffic,define intent uniIntent: for endpoint('network') allow traffic('torrent')
+please limit bandwidth to 20 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '20', 'mbps')"
+"""Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+"""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+add ips for dorms,define intent uniIntent: for endpoint('dorms') add middlebox('ips')
+"Hey Lumi, please add the firewall, the ips and from hall.","define intent uniIntent: for endpoint('hall') add middlebox('firewall'), middlebox('ips')"
+add firewall,define intent uniIntent: for endpoint('network') add middlebox('firewall')
+remove firewall from network,define intent uniIntent: for endpoint('network') remove middlebox('firewall')
+add firewall from network,define intent uniIntent: for endpoint('network') add middlebox('firewall')
+"""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+Inspect traffic for the dorm,"define intent uniIntent: for endpoint('dorms'), traffic('all') add middlebox('dpi')"
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+set a 10 GB per week download quota for students in dorms.,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+Teacher inspects all traffic,"define intent uniIntent: for group('professors'), traffic('all') add middlebox('dpi')"
+set a 5 Gbps bandwidth limit for the server racks from 4PM to 7PM.,"define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+inspect all traffic,define intent uniIntent: for traffic('all') add middlebox('dpi')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"Um teacher is talking all the time, what should I do to play brawl stars again?","define intent uniIntent: for group('professors'), traffic('all')"
+"Add firewall and intrusion detection from gateway to backend for client B, with latency less than 10ms and 100mbps of bandwidth,and allow HTTPS only, everyday from 09:00 to 18:00","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https'), protocol('everyday') set bandwidth('max', '10', 'mbps') start hour('09:00') end hour('18:00')"
+"Add firewall and intrusion detection from gateway to backend for client B, with latency less than 10ms and 100mbps of bandwidth,and allow HTTPS only, everyday, from 09:00 to 18:00","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '10', 'mbps') start hour('09:00') end hour('18:00')"
+"Add firewall and intrusion detection from gateway to backend for client B, with latency less than 10ms and 100mbps of bandwidth,and allow HTTPS only, everyday from 09:00 to 18:00","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https'), protocol('everyday') set bandwidth('max', '10', 'mbps') start hour('09:00') end hour('18:00')"
+show me a list of all intents,define intent uniIntent: for traffic('all')
+i want to block traffic for neu,define intent uniIntent: for endpoint('network') block traffic('all')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Please add a firewall for professors,define intent uniIntent: for group('professors') add middlebox('firewall')
+Students can't download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+AIM chat and file transfering is allowed by the University firewall,"define intent uniIntent: for endpoint('university'), service('AIM Chat'), service('file transfer') add middlebox('firewall')"
+make sure all traffic to server racks is throttled to 1 gbps from 4pm to 9pm,"define intent uniIntent: for endpoint('servers'), traffic('all') set bandwidth('max', '1', 'gbps') start hour('16:00') end hour('21:00')"
+CounterStrike server is blocked by the University firewall,define intent uniIntent: for endpoint('university') block service('CounterStrike server') add middlebox('firewall')
+block all traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+Block all traffic from 10.0.0.10,define intent uniIntent: for endpoint('network') block traffic('all')
+limit guest's bandwidth to 100 Gbps,"define intent uniIntent: for group('guests') set bandwidth('max', '100', 'gbps')"
+limit guest's bandwidth to 100 Mbps for torrent download,"define intent uniIntent: for group('guests'), traffic('torrent'), service('file sharing') set bandwidth('max', '100', 'mbps')"
+block traffic between host1 and Host2,define intent uniIntent: for endpoint('network') block service('Host2') traffic('all')
+please limit the torrent bandwith of guests to minimum 100mbps,"define intent uniIntent: for endpoint('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+''block traffic from f2movies going to students in the labs'',"define intent uniIntent: for group('students'), endpoint('labs') block service('F2movies')"
+block traffic from youtube for students,"define intent uniIntent: for service('youtube'), group('students') "
+"""Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+block traffic from youtube,define intent uniIntent: for service('youtube') 
+please block traffic from youtube,define intent uniIntent: for service('youtube') block traffic('all')
+"please, block https traffic from laboratories",define intent uniIntent: for endpoint('labs') block protocol('https')
+block traffic for all students,define intent uniIntent: for group('students') 
+block traffic for all students,define intent uniIntent: for group('students') 
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+make traffic from students go to a firewall and limit it to 100Mbps if it's to 10.12.34.0/24,"define intent uniIntent: for group('students') add middlebox('firewall') set bandwidth('max', '100', 'mbps')"
+please block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+Limit torrent traffic to 100mbps from internet to labs,"define intent uniIntent: for endpoint('gateway'), endpoint('labs'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Block F2movies to the labs,define intent uniIntent: for endpoint('labs') block service('F2movies')
+I want the torrent traffic from guest users to be no more than 100 mbps,"define intent uniIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Students can use up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+increase the download quota of students by 1GB,"define intent uniIntent: for group('students')  set quota('download', '1', 'gb/hr')"
+"although the teacher disagrees, I want to increase the quota of students by 10GB per day","define intent uniIntent: for group('professors'), group('students')  set quota('download', '10', 'GB per day')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Please block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+block traffic,define intent uniIntent: for endpoint('network') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+block website F2movies for labs,define intent uniIntent: for endpoint('labs') block service('F2movies')
+block labs,define intent uniIntent: for endpoint('network') 
+inspect traffic from labs to all students,"define intent uniIntent: for endpoint('labs'), group('students'), traffic('all') add middlebox('dpi')"
+limit torrent traffic in guests to 100mbps,"define intent uniIntent: for endpoint('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+add a new user,define intent uniIntent: for group('users') 
+please add a firewall for students,define intent uniIntent: for group('students') add middlebox('firewall')
+Block traffic for students,define intent uniIntent: for group('students') 
+Block traffic of students.,define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"""Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+please block traffic for all students,define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please add the firewall, the ips and from hall.","define intent uniIntent: for endpoint('hall') add middlebox('firewall'), middlebox('ips')"
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Tell me how big the universe is,define intent uniIntent: for endpoint('network')
+deploy 500 10GBit servers,"define intent uniIntent: for endpoint('network') set quota('download', '10', 'GBit')"
+limit the internet of dorm,define intent uniIntent: for endpoint('dorms') allow traffic('the')
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+all traffic from the Internet to the labs is carefully inspected by the Deep Packet Inspection (DPI) middlebox.,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+limit the traffic from abc to 100mbps for students in the weekend,"define intent uniIntent: for group('students') set bandwidth('max', '100', 'mbps')"
+all traffic from the Internet to the labs is carefully inspected by the Deep Packet Inspection,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+please block traffic for all students.,define intent uniIntent: for group('students') block traffic('all')
+"For all students in the lab, limit all traffic to 5Mbps.","define intent uniIntent: for group('students'), endpoint('labs'), traffic('all') set bandwidth('max', '5', 'mbps')"
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"""Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+unblock traffic for postgrad students,define intent uniIntent: for group('students') 
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+how much traffic is in my network right now,define intent uniIntent: for endpoint('network') allow service('much')
+can you monitor traffic?,define intent uniIntent: for traffic('all') add middlebox('traffic monitor')
+unblock all traffic,define intent uniIntent: for endpoint('network') 
+unblock traffic for everyone,define intent uniIntent: for endpoint('network') 
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Please make traffic coming from the Internet pass through a firewall.""",define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall for student.,"define intent uniIntent: for group('students'), endpoint('gateway') add middlebox('firewall')"
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Limit bandwidth usage to 50 mbps for student,"define intent uniIntent: for group('students') set bandwidth('max', '50', 'mbps')"
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"Add firewall and intrusion detection from the gateway to the backend for client B with at least 100mbps of bandwidth, and allow HTTPS only","define intent uniIntent: from endpoint('gateway') to endpoint('backend') add middlebox('firewall'), middlebox('ids') allow protocol('https') set bandwidth('max', '100', 'mbps')"
+torrent traffic must be allowed for guest but limited to 100 mbps,"define intent uniIntent: for endpoint('guests') allow traffic('torrent') set bandwidth('max', '100', 'mbps')"
+ban youtube for students,"define intent uniIntent: for group('students'), service('youtube')"
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+block Netflix,define intent uniIntent: for endpoint('network') block service('netflix')
+delete all rules,define intent uniIntent: for endpoint('network') 
+add DPI between Internet and Labs,define intent uniIntent: from endpoint('gateway') to endpoint('labs') add middlebox('dpi')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+reroute traffic from s1 to a3 from 8am to 9pm,define intent uniIntent: for endpoint('network') start hour('08:00') end hour('21:00')
+Students can download up to per week of data.,define intent uniIntent: for group('students')
+Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+please block traffic for all students.Limit bandwidth usage to 50 mbps for professors,"define intent uniIntent: for group('students'), group('professors') block traffic('all') set bandwidth('max', '50', 'mbps')"
+students can download 100GB per month,"define intent uniIntent: for group('students') set quota('download', '100', 'gb/mth')"
+50 mbps please block traffic for all students.,"define intent uniIntent: for group('students') block traffic('all') set bandwidth('max', '50', 'mbps')"
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+please block traffic for all students.,define intent uniIntent: for group('students') block traffic('all')
+show me the network,define intent uniIntent: for endpoint('network')
+Block all.,define intent uniIntent: for endpoint('network') block traffic('all')
+Limit bandwidth usage for professors,define intent uniIntent: for group('professors')
+inspect traffic,define intent uniIntent: for endpoint('network') add middlebox('dpi')
+download up to 10 GB per week for all nibbas,"define intent uniIntent: for traffic('all') set quota('download', '10', 'gb/wk')"
+inspect the DMZ labs traffic using DPI,define intent uniIntent: for endpoint('DMZ') add middlebox('dpi')
+limit the rate to 100mbps for guests,"define intent uniIntent: for endpoint('guests') set bandwidth('max', '100', 'mbps')"
+limit the rate to 100mbps for guests,"define intent uniIntent: for endpoint('guests') set bandwidth('max', '100', 'mbps')"
+Students can download up to 10 GB per week of data.,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+hey lumi for every user in log all traffic,define intent uniIntent: for group('users') 
+inspect the labs traffic using DPI,define intent uniIntent: for endpoint('labs') add middlebox('dpi')
+for students in dorms limit download to 10GB per week,"define intent uniIntent: for group('students'), endpoint('dorms') set quota('download', '10', 'gb/wk')"
+limit guests to 100mbps to guests,"define intent uniIntent: for group('guests') set bandwidth('max', '100', 'mbps')"
+"""Limit bandwidth usage to 50 mbps for professors.""","define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+"""Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+remove firewall from network,define intent uniIntent: for endpoint('network') remove middlebox('firewall')
+"Hey Lumi, Traffic from host server can reach switch S.",define intent uniIntent: for endpoint('hosts')
+"""Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Limit bandwidth usage to 50 mbps for professors.,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+Please make traffic coming from the Internet pass through a firewall.,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Please make traffic coming from the Internet pass through a firewall,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+"Hey Lumi, please block traffic for all students",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students in the dorms","define intent uniIntent: for group('students'), endpoint('dorms') block traffic('all')"
+all traffic from the Internet to the labs is carefully inspected by the Deep Packet Inspection (DPI) middlebox.,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+diverts all traffic to the DPI,define intent uniIntent: for traffic('all') add middlebox('dpi')
+limit to 100 Mbps the bandwidth torrent traffic,"define intent uniIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')"
+Teacher inspects all traffic,"define intent uniIntent: for group('professors'), traffic('all') add middlebox('dpi')"
+Professors need to control all computers in the lab tomorrow,"define intent uniIntent: for group('professors'), endpoint('labs') "
+"For all students in the lab, limit all traffic from Youtube to 5Mbps.","define intent uniIntent: for group('students'), endpoint('labs'), service('youtube'), traffic('all') set bandwidth('max', '5', 'mbps')"
+"For all students in the lab, limit all traffic from Youtube to 5Mbps.","define intent uniIntent: for group('students'), endpoint('labs'), service('youtube'), traffic('all') set bandwidth('max', '5', 'mbps')"
+all traffic from the Internet to the labs is carefully inspected by the Deep Packet Inspection (DPI) middlebox.,define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('dpi')
+Please make traffic coming from the Internet pass through a firewall,define intent uniIntent: for endpoint('gateway') add middlebox('firewall')
+Students can download up to 10 GB per week of data,"define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+Limit bandwidth usage to 50 mbps for professors between 5.00PM and 8.00AM,"define intent uniIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+block traffic for everyone!,define intent uniIntent: for endpoint('network') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+Please monitor all dns requests,"define intent uniIntent: for traffic('all'), protocol('dns') add middlebox('traffic monitor')"
+"""Hey Lumi, please block traffic for all students.""",define intent uniIntent: for group('students') block traffic('all')
+"Hey Lumi, please block traffic for all students.",define intent uniIntent: for group('students') block traffic('all')
+"Students can download up to 10 GB per week of data.""","define intent uniIntent: for group('students') set quota('download', '10', 'gb/wk')"
+It is inappropriate to run insecure protocols in the residence halls,define intent uniIntent: for endpoint('dorms')
+internet traffic must through servers.dpi to labs,"define intent uniIntent: for endpoint('labs'), endpoint('gateway') add middlebox('dpi')"
 Inspect packets for all students,define intent uniIntent: for group('students') add middlebox('dpi')

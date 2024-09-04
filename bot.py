@@ -17,8 +17,8 @@ bot.
 
 import logging
 import ollama
-from telegram import ForceReply, Update,  Message
-from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters,CallbackContext
+from telegram import ForceReply, Update,  Message, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters,CallbackContext,CallbackQueryHandler, CallbackContext
 import speech_recognition as sr
 import telebot
 import subprocess
@@ -53,7 +53,9 @@ def search_intent(user_input, l):
             best_match_id = best_match.id
             matched_intent = dataset.iloc[best_match_id]["text"]
             response = dataset.iloc[best_match_id]["nile"]
-      
+            print(matched_intent)
+            print(response)
+            
             return "this intent is correct: " + response + " ?"
         elif best_match.score >= 0.30:
             best_match_id = best_match.id
@@ -74,6 +76,32 @@ def search_intent(user_input, l):
           return output["message"]["content"]
     else:
         return None, "Sorry, I didn't understand that."
+    
+def buttons(user_input, l):
+    user_vector = ollama_client.embeddings(model="example", prompt=user_input)["embedding"]
+    results = client.search(collection_name="intent_db", query_vector=user_vector, limit=1)
+    print(user_input)
+ 
+    if results:
+        best_match: ScoredPoint = results[0]
+        print(results)
+        print(best_match.score)
+        if best_match.score >= 0.30:
+          
+          keyboard = [
+        [InlineKeyboardButton("YES", callback_data='1')],
+        [InlineKeyboardButton("NO", callback_data='2')]
+       
+    ]
+
+          reply_markup = InlineKeyboardMarkup(keyboard)
+          return reply_markup
+        else:
+          return "vazio"
+        
+       
+           
+       
 
 bot = telebot.TeleBot("7001357271:AAEQJAWWsgv8Fiu5CIvVcgfkaVbbC5cDu8o")
 
@@ -106,6 +134,12 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     """Send a message when the command /help is issued."""
     await update.message.reply_text("Help!")
 
+async def button2(update: Update, context: CallbackContext) -> None:
+    query = update.callback_query
+    query.answer()  # Acknowledge the callback query
+
+    # Perform actions based on the button clicked
+    await query.edit_message_text(text=f"Selected option: {query.data}")
 
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Echo the user message."""
@@ -131,8 +165,16 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
       'content': x,
     }
   )
-    await update.message.reply_text(x)
+    
+    z= buttons(update.message.text,usuarios[todos['result'][0]['message']['chat']['id']])
 
+    if z=="vazio":
+      await update.message.reply_text(x)
+    else:     
+    
+      await update.message.reply_text(x,reply_markup=z)
+
+    
 async def received_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     file_size_in_MB = update.message.voice.file_size/(1024*1024)
     print("ok")
@@ -204,6 +246,7 @@ def main() -> None:
     # on non command i.e message - echo the message on Telegram
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
     application.add_handler(MessageHandler(filters.VOICE & (~filters.COMMAND), received_audio))
+    application.add_handler(CallbackQueryHandler(button2))
     # Run the bot until the user presses Ctrl-C
     application.run_polling(timeout=600,allowed_updates=Update.ALL_TYPES)
 
