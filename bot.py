@@ -134,7 +134,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     """Send a message when the command /help is issued."""
     await update.message.reply_text("Help!")
 
-async def button2(update: Update, context: CallbackContext) -> None:
+async def touch(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
     query.answer()  # Acknowledge the callback query
 
@@ -246,7 +246,7 @@ def main() -> None:
     # on non command i.e message - echo the message on Telegram
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
     application.add_handler(MessageHandler(filters.VOICE & (~filters.COMMAND), received_audio))
-    application.add_handler(CallbackQueryHandler(button2))
+    application.add_handler(CallbackQueryHandler(touch))
     # Run the bot until the user presses Ctrl-C
     application.run_polling(timeout=600,allowed_updates=Update.ALL_TYPES)
 
