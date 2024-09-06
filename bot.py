@@ -139,7 +139,20 @@ async def touch(update: Update, context: CallbackContext) -> None:
     query.answer()  # Acknowledge the callback query
 
     # Perform actions based on the button clicked
+
+    if query.data == '1':
+      response = usuarios[1000556256][-1]['content']
+
+      response = response.replace("this intent is correct: ","")
+      response = response.replace(" ?","")
+      response = response.replace("uniIntent","stnIntent")
+  
+      print(response)
+      requests.post("http://127.0.0.1:5000/deploy",json={"intent": response})
+
     await query.edit_message_text(text=f"Selected option: {query.data}")
+
+    #await requests("http://127.0.0.1:5000/deploy")
 
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Echo the user message."""
