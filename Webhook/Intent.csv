@@ -50,3 +50,4 @@ The UVA More Secure Network uses a firewall, a network security device designed 
 The network firewall does prevent some applications from working in their normal manner, for example, video and audio conferencing products that use the H.323;define intent uniIntent: for endpoint('network') block traffic('H323 video conferencing')
 The UC Davis network is continually scanned for prohibited activities and network threats.;define intent uniIntent: for endpoint('network') add middlebox('traffic monitor')
 Inspect packets for all students;define intent uniIntent: for group('students') add middlebox('dpi')
+Inspect packets that come from gateway and go to the webserver;define intent stnIntent: from endpoint('gateway') to endpoint('webserver') add middlebox('dpi')

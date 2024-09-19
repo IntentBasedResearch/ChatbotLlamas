@@ -35,7 +35,7 @@ from qdrant_client.models import CollectionDescription, Distance, VectorParams
 client = QdrantClient(host="127.0.0.1", port=6333)
 ollama_client = ollama.Client("http://127.0.0.1:11434")
 dataset = pd.read_csv("processed_intent.csv")
-
+options = -1
 
 
 
@@ -139,18 +139,40 @@ async def touch(update: Update, context: CallbackContext) -> None:
     query.answer()  # Acknowledge the callback query
 
     # Perform actions based on the button clicked
-
+    
     if query.data == '1':
       response = usuarios[1000556256][-1]['content']
-
+      
       response = response.replace("this intent is correct: ","")
       response = response.replace(" ?","")
       response = response.replace("uniIntent","stnIntent")
-  
+      usuarios[1000556256].append(
+    {
+      'role': 'assistant',
+      'content': "Intent was sent",
+    }
+  )
       print(response)
+      
       requests.post("http://127.0.0.1:5000/deploy",json={"intent": response})
 
-    await query.edit_message_text(text=f"Selected option: {query.data}")
+      await query.edit_message_text(text="Intent was sent")
+      
+     
+
+    else:
+      usuarios[1000556256].append(
+    {
+      'role': 'assistant',
+      'content': "Why this intent is not correctly?",
+    }
+  )
+      await query.message.reply_text(text=f"Why this intent is not correctly?")
+    
+      
+      
+    await query.answer()
+   
 
     #await requests("http://127.0.0.1:5000/deploy")
 
@@ -158,6 +180,9 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Echo the user message."""
     user = requests.get("https://api.telegram.org/bot7001357271:AAEQJAWWsgv8Fiu5CIvVcgfkaVbbC5cDu8o/getUpdates")
     todos = json.loads(user.content)
+    
+    
+
     if todos['result']!=[]:
         if todos['result'][0]['message']['chat']['id'] not in usuarios:
            
@@ -170,7 +195,31 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
       'content': update.message.text,
     }
   )
-    x = search_intent(update.message.text,usuarios[todos['result'][0]['message']['chat']['id']])
+    x= "ok"
+
+    if 1000556256 in usuarios:
+
+    
+      if   len(usuarios[1000556256])>=2:
+        print(usuarios[1000556256][-2]['content'])
+      
+        if usuarios[1000556256][-2]['content'] ==  "Why this intent is not correctly?":
+          response44 = usuarios[1000556256][-3]['content']
+          response44 = response44.replace("this intent is correct: ","")
+          response44 = response44.replace(" ?","")
+          output = ollama.generate(
+  model="example",
+  prompt=f"Correct the intent based on the following correction: Original intent: {response44} User correction: {usuarios[1000556256][-1]['content']}. Response Only UnitIntent"
+)
+          x = output['response']
+
+        else:
+          x = search_intent(update.message.text,usuarios[todos['result'][0]['message']['chat']['id']])
+      else:
+        x = search_intent(update.message.text,usuarios[todos['result'][0]['message']['chat']['id']])
+
+    else: 
+      x = search_intent(update.message.text,usuarios[todos['result'][0]['message']['chat']['id']])
 
     usuarios[todos['result'][0]['message']['chat']['id']].append(
     {
@@ -184,7 +233,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if z=="vazio":
       await update.message.reply_text(x)
     else:     
-    
+  
       await update.message.reply_text(x,reply_markup=z)
 
     

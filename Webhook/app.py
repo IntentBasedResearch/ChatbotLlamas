@@ -21,6 +21,7 @@ for j in range(len(y)):
 '''
 
 intent.append(["Inspect packets for all students","define intent uniIntent: for group('students') add middlebox('dpi')"])
+intent.append(['Inspect packets that come from gateway and go to the webserver',"define intent stnIntent: from endpoint('gateway') to endpoint('webserver') add middlebox('dpi')"])
 x = pd.DataFrame(intent,columns=["text","nile"])
 
 x.to_csv("Intent.csv",sep=";", index=False)
